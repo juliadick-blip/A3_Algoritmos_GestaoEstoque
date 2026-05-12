@@ -112,7 +112,7 @@ public class Principal {
                         + "NOME: "
                 );
 
-                if (produtoExiste(nome)) {
+                if (Biblioteca.produtoExiste(nome)) {
 
                     JOptionPane.showMessageDialog(null, "ERRO: Produto já cadastrado.");
 
@@ -185,16 +185,5 @@ public class Principal {
         } while (novaInclusao == 'S');
     }
 
-    // SUBROTINA DE VALIDAÇÃO SE O PRODUTO EXISTE
-    public static boolean produtoExiste(String nome) {
-
-        for (int i = 0; i < totalProdutos; i++) {
-
-            if (nomes[i].equalsIgnoreCase(nome)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
+  
 }
