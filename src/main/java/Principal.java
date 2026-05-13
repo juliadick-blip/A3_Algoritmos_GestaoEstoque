@@ -50,7 +50,6 @@ public class Principal {
 
         } while (opcao != 0);
 
-      
     }
 
     // TELA 1.1
@@ -86,6 +85,10 @@ public class Principal {
                     alterarProduto();
                     break;
 
+                case 3:
+                    consultarProduto();
+                    break;
+                    
                 case 0:
                     JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
                     break;
@@ -252,9 +255,9 @@ public class Principal {
 
             if (confirma == 'S') {
 
-                precos[acharIndice(itemSolicitado)] = novoPreco;
-                unidades[acharIndice(itemSolicitado)] = novaUnidade;
-                quantidades[acharIndice(itemSolicitado)] = novaQuantidade;
+                precos[Biblioteca.acharIndice(itemSolicitado)] = novoPreco;
+                unidades[Biblioteca.acharIndice(itemSolicitado)] = novaUnidade;
+                quantidades[Biblioteca.acharIndice(itemSolicitado)] = novaQuantidade;
 
                 JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
 
@@ -271,18 +274,55 @@ public class Principal {
         } while (novaAlteracao == 'S');
 
     }
+    //TELA 1.1.3
 
-    //PROCURA O INDICE DO PRODUTO A SER ALTERADO
-    static int acharIndice(String itemSelecionado) {
-        int index = -1;
+    public static void consultarProduto() {
+        int retornar;
+        String itemSelecionado;
+        char novaConsulta;
+        int indice;
 
-        for (int i = 0; i < totalProdutos; i++) {
-            if (nomes[i].equals(itemSelecionado)) {
-                index = i;
-                break;
+        do {
+            while (true) {
+                itemSelecionado = JOptionPane.showInputDialog("CONSULTA DE PRODUTO\n"
+                        + "\n"
+                        + "Produto que deseja consultar: ");
+
+                if (Biblioteca.produtoExiste(itemSelecionado) != true) {
+                    JOptionPane.showMessageDialog(null, "ERRO: Produto não encontrado.");
+                } else {
+                    indice = Biblioteca.acharIndice(itemSelecionado);
+                    break;
+                }
             }
-        }
-        return index;
+            retornar = 1;
+            while (retornar != 0) {
+                try {
+                    retornar = Integer.parseInt(JOptionPane.showInputDialog("""
+                                                                            CONSULTA DE DADOS
+                                                                            
+                                                                            NOME        : %s
+                                                                            PREÇO       : %.2f
+                                                                            UNIDADE     : %s
+                                                                            QUANTIDADE  : %d
+                                                                            
+                                                                            Digite '0' para retornar.
+                                                                            """.formatted(nomes[indice],
+                            precos[indice],
+                            unidades[indice],
+                            quantidades[indice]
+                    )));
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Valor inválido.");
+                }
+            }
+            // SE SIM PARA NOVA ALTERACAO
+            novaConsulta = JOptionPane.showInputDialog(
+                    "NOVA CONSULTA (S/N)?"
+            ).toUpperCase().charAt(0);
+
+        } while (novaConsulta == 'S');
+
     }
 
 }
