@@ -50,6 +50,7 @@ public class Principal {
 
         } while (opcao != 0);
 
+      
     }
 
     // TELA 1.1
@@ -79,6 +80,10 @@ public class Principal {
 
                 case 1:
                     incluirProduto();
+                    break;
+
+                case 2:
+                    alterarProduto();
                     break;
 
                 case 0:
@@ -185,5 +190,99 @@ public class Principal {
         } while (novaInclusao == 'S');
     }
 
-  
+    //TELA 1.1.2
+    public static void alterarProduto() {
+        String itemSolicitado;
+        double novoPreco;
+        String novaUnidade;
+        int novaQuantidade;
+        char novaAlteracao;
+        char confirma;
+
+        do {
+            //QUAL ITEM SERÁ ALTERADO
+            while (true) {
+                itemSolicitado = JOptionPane.showInputDialog("ALTERAÇÃO DE PRODUTO\n"
+                        + "NOME: ");
+
+                if (Biblioteca.produtoExiste(itemSolicitado) != true) {
+                    JOptionPane.showMessageDialog(null, "ERRO: Produto não encontrado.");
+                } else {
+                    break;
+                }
+            }
+
+            //NOVO VALOR
+            while (true) {
+                try {
+                    novoPreco = Double.parseDouble(JOptionPane.showInputDialog("NOVO PREÇO: "));
+
+                    if (novoPreco <= 0) {
+                        JOptionPane.showMessageDialog(null, "ERRO: O preço deve ser maior que zero.");
+                    } else {
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "ERRO: Valor inválido");
+                }
+            }
+
+            //NOVA UNIDADE
+            novaUnidade = JOptionPane.showInputDialog("NOVA UNIDADE: ");
+
+            //NOVA QUANTIDADE
+            while (true) {
+                try {
+                    novaQuantidade = Integer.parseInt(JOptionPane.showInputDialog("NOVA QUANTIDADE: "));
+
+                    if (novaQuantidade <= 0) {
+                        JOptionPane.showMessageDialog(null, "ERRO: A quantidade deve ser maior que zero.");
+                    } else {
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "ERRO: Valor inválido");
+                }
+            }
+
+            // CONFIRMAÇÃO
+            confirma = JOptionPane.showInputDialog(
+                    "CONFIRMA ALTERAÇÃO (S/N)?"
+            ).toUpperCase().charAt(0);
+
+            if (confirma == 'S') {
+
+                precos[acharIndice(itemSolicitado)] = novoPreco;
+                unidades[acharIndice(itemSolicitado)] = novaUnidade;
+                quantidades[acharIndice(itemSolicitado)] = novaQuantidade;
+
+                JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Alteração cancelada.");
+            }
+
+            // SE SIM PARA NOVA ALTERACAO
+            novaAlteracao = JOptionPane.showInputDialog(
+                    "NOVA ALTERAÇÃO (S/N)?"
+            ).toUpperCase().charAt(0);
+
+        } while (novaAlteracao == 'S');
+
+    }
+
+    //PROCURA O INDICE DO PRODUTO A SER ALTERADO
+    static int acharIndice(String itemSelecionado) {
+        int index = -1;
+
+        for (int i = 0; i < totalProdutos; i++) {
+            if (nomes[i].equals(itemSelecionado)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
 }
