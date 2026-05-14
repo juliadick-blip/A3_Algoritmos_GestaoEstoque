@@ -13,25 +13,23 @@ public class Principal {
     public static void main(String[] args) {
 
         // TELA 1.0
-        int opcao;
+        int opcao = 0;
 
         do {
 
-            opcao = Integer.parseInt(
-                    JOptionPane.showInputDialog(
-                            "XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                            + "SISTEMA DE CONTROLE DE ESTOQUE\n"
-                            + "\n"
-                            + "MENU PRINCIPAL\n"
-                            + "\n"
-                            + "1 - CADASTRO DE PRODUTOS\n"
-                            + "2 - MOVIMENTAÇÃO\n"
-                            + "3 - REAJUSTE DE PREÇOS\n"
-                            + "4 - RELOTÓRIOS\n"
-                            + "0 - FINALIZAR\n"
-                            + "\n"
-                            + "OPÇÃO: "
-                    )
+            opcao = Biblioteca.lerInteiro(
+                    "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "SISTEMA DE CONTROLE DE ESTOQUE\n"
+                    + "\n"
+                    + "MENU PRINCIPAL\n"
+                    + "\n"
+                    + "1 - CADASTRO DE PRODUTOS\n"
+                    + "2 - MOVIMENTAÇÃO\n"
+                    + "3 - REAJUSTE DE PREÇOS\n"
+                    + "4 - RELATÓRIOS\n"
+                    + "0 - FINALIZAR\n"
+                    + "\n"
+                    + "OPÇÃO: "
             );
 
             switch (opcao) {
@@ -41,15 +39,24 @@ public class Principal {
                     break;
 
                 case 0:
-                    JOptionPane.showMessageDialog(null, "Sistema finalizado.");
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Sistema finalizado."
+                    );
+
+                    System.exit(0);
                     break;
 
                 default:
-                    JOptionPane.showMessageDialog(null, "Opção inválida.");
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Opção inválida."
+                    );
             }
 
-        } while (opcao != 0);
-
+        } while (true);
     }
 
     // TELA 1.1
@@ -59,20 +66,19 @@ public class Principal {
 
         do {
 
-            opcao = Integer.parseInt(
-                    JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                            + "SISTEMA DE CONTROLE DE ESTOQUE\n"
-                            + "\n"
-                            + "CADASTRO DE PRODUTOS\n"
-                            + "\n"
-                            + "1 - INCLUSÃO\n"
-                            + "2 - ALTERAÇÃO\n"
-                            + "3 - CONSULTA\n"
-                            + "4 - EXCLUSÃO\n"
-                            + "0 - RETORNAR\n"
-                            + "\n"
-                            + "OPÇÃO: "
-                    )
+            opcao = Biblioteca.lerInteiro(
+                    "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "SISTEMA DE CONTROLE DE ESTOQUE\n"
+                    + "\n"
+                    + "CADASTRO DE PRODUTOS\n"
+                    + "\n"
+                    + "1 - INCLUSÃO\n"
+                    + "2 - ALTERAÇÃO\n"
+                    + "3 - CONSULTA\n"
+                    + "4 - EXCLUSÃO\n"
+                    + "0 - RETORNAR\n"
+                    + "\n"
+                    + "OPÇÃO: "
             );
 
             switch (opcao) {
@@ -92,19 +98,28 @@ public class Principal {
                 case 4:
                     excluirProduto();
                     break;
-                    
+
                 case 0:
-                    JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
-                    break;
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Retornando ao menu principal..."
+                    );
+
+                    return;
 
                 default:
-                    JOptionPane.showMessageDialog(null, "Opção inválida.");
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Opção inválida."
+                    );
             }
 
-        } while (opcao != 0);
+        } while (true);
     }
-    // TELA 1.1.1
 
+    // TELA 1.1.1
     public static void incluirProduto() {
 
         char novaInclusao;
@@ -130,6 +145,27 @@ public class Principal {
 
                 } else {
                     break;
+                }
+
+                if (nome == null) {
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Sistema finalizado."
+                    );
+
+                    System.exit(0);
+                }
+
+                // CAMPO VAZIO
+                if (nome.trim().isEmpty()) {
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Digite uma opção válida."
+                    );
+
+                    continue;
                 }
             }
 
@@ -348,8 +384,8 @@ public class Principal {
         int indice = -1;
 
         do {
-            if(Biblioteca.verificaSeEstaVazio(nomes) == false){
-                JOptionPane.showMessageDialog(null,"ERRO: Nenhum produto cadastrado.");
+            if (Biblioteca.verificaSeEstaVazio(nomes) == false) {
+                JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
                 break;
             }
             while (true) {
