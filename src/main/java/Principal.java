@@ -119,102 +119,82 @@ public class Principal {
         } while (true);
     }
 
-    // TELA 1.1.1
+  // TELA 1.1.1
     public static void incluirProduto() {
 
         char novaInclusao;
-        String nome;
-        double preco;
-        String unidade;
-        int quantidade;
-        char confirma;
 
         do {
+
+            String nome;
+            double preco;
+            String unidade;
+            int quantidade;
+            char confirma;
 
             // NOME
             while (true) {
 
-                nome = JOptionPane.showInputDialog(
-                        "INCLUSÃO DE PRODUTO\n"
-                        + "NOME: "
+                nome = Biblioteca.lerTexto(
+                        "INCLUSÃO DE PRODUTO\n\n"
+                        + "NOME:"
                 );
 
                 if (Biblioteca.produtoExiste(nome)) {
 
-                    JOptionPane.showMessageDialog(null, "ERRO: Produto já cadastrado.");
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "ERRO: Produto já cadastrado."
+                    );
 
                 } else {
                     break;
-                }
-
-                if (nome == null) {
-
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Sistema finalizado."
-                    );
-
-                    System.exit(0);
-                }
-
-                // CAMPO VAZIO
-                if (nome.trim().isEmpty()) {
-
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Digite uma opção válida."
-                    );
-
-                    continue;
                 }
             }
 
             // PREÇO
             while (true) {
 
-                try {
-                    preco = Double.parseDouble(JOptionPane.showInputDialog("PREÇO: "));
+                preco = Biblioteca.lerDouble("PREÇO:");
 
-                    if (preco <= 0) {
+                if (preco <= 0) {
 
-                        JOptionPane.showMessageDialog(null, "ERRO: O preço deve ser maior que zero.");
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "ERRO: O preço deve ser maior que zero."
+                    );
 
-                    } else {
-                        break;
-                    }
-
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "ERRO: Valor inválido");
+                } else {
+                    break;
                 }
-
             }
 
             // UNIDADE
-            unidade = JOptionPane.showInputDialog("UNIDADE: ");
+            unidade = Biblioteca.lerTexto("UNIDADE:");
 
             // QUANTIDADE
+            
             while (true) {
-                try {
-                    quantidade = Integer.parseInt(JOptionPane.showInputDialog("QUANTIDADE: "));
 
-                    if (quantidade < 0) {
+                quantidade = Biblioteca.lerInteiro("QUANTIDADE:");
 
-                        JOptionPane.showMessageDialog(null, "ERRO: Quantidade inválida.");
+                if (quantidade < 0) {
 
-                    } else {
-                        break;
-                    }
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "ERRO: Quantidade inválida."
+                    );
 
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "ERRO: Valor inválido");
+                } else {
+                    break;
                 }
-
             }
 
             // CONFIRMAÇÃO
-            confirma = JOptionPane.showInputDialog(
+            
+            confirma = Biblioteca.confirmar(
                     "CONFIRMA INCLUSÃO (S/N)?"
-            ).toUpperCase().charAt(0);
+            );
 
             if (confirma == 'S') {
 
@@ -225,17 +205,23 @@ public class Principal {
 
                 totalProdutos++;
 
-                JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Produto cadastrado com sucesso!"
+                );
 
             } else {
 
-                JOptionPane.showMessageDialog(null, "Cadastro cancelado.");
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Cadastro cancelado."
+                );
             }
 
-            // SE SIM PARA NOVA INCLUSÃO
-            novaInclusao = JOptionPane.showInputDialog(
+            // NOVA INCLUSÃO
+            novaInclusao = Biblioteca.confirmar(
                     "NOVA INCLUSÃO (S/N)?"
-            ).toUpperCase().charAt(0);
+            );
 
         } while (novaInclusao == 'S');
     }
