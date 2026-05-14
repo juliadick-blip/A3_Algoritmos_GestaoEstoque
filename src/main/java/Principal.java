@@ -89,6 +89,10 @@ public class Principal {
                     consultarProduto();
                     break;
 
+                case 4:
+                    excluirProduto();
+                    break;
+                    
                 case 0:
                     JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
                     break;
@@ -344,6 +348,10 @@ public class Principal {
         int indice = -1;
 
         do {
+            if(Biblioteca.verificaSeEstaVazio(nomes) == false){
+                JOptionPane.showMessageDialog(null,"ERRO: Nenhum produto cadastrado.");
+                break;
+            }
             while (true) {
                 itemSelecionado = JOptionPane.showInputDialog("EXCLUSÃO DE PRODUTO\n"
                         + "\n"
