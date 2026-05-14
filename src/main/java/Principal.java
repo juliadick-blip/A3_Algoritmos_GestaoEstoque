@@ -336,4 +336,77 @@ public class Principal {
 
     }
 
+    //TELA 1.1.4
+    public static void excluirProduto() {
+        char retornar;
+        String itemSelecionado;
+        char novaExclusao;
+        int indice = -1;
+
+        do {
+            while (true) {
+                itemSelecionado = JOptionPane.showInputDialog("EXCLUSÃO DE PRODUTO\n"
+                        + "\n"
+                        + "Produto que deseja excluir: ");
+
+                if (Biblioteca.produtoExiste(itemSelecionado) != true) {
+                    JOptionPane.showMessageDialog(null, "ERRO: Produto não encontrado.");
+                } else {
+                    indice = Biblioteca.acharIndice(itemSelecionado);
+                    break;
+
+                }
+
+            }
+            retornar = 'N';
+            while (retornar != 'S') {
+
+                retornar = JOptionPane.showInputDialog("""
+                                                                            DADOS DO PRODUTO
+                                                                            
+                                                                            NOME        : %s
+                                                                            PREÇO       : %.2f
+                                                                            UNIDADE     : %s
+                                                                            QUANTIDADE  : %d
+                                                                            
+                                                                            CONFIRMA EXCLUSÃO (S/N)?
+                                                                            """.formatted(nomes[indice],
+                        precos[indice],
+                        unidades[indice],
+                        quantidades[indice]
+                )).toUpperCase().charAt(0);
+            }
+
+            //FAZ A EXCLUSÃO DOS DADOS
+            nomes[indice] = null;
+            precos[indice] = 0.0;
+            unidades[indice] = null;
+            quantidades[indice] = 0;
+
+            //MOVE TODOS OS ÍNDICES UMA CASA PARA TRÁS
+            for (int i = indice; i < Principal.totalProdutos - 1; i++) {
+
+                Principal.nomes[i] = Principal.nomes[i + 1];
+                Principal.precos[i] = Principal.precos[i + 1];
+                Principal.unidades[i] = Principal.unidades[i + 1];
+                Principal.quantidades[i] = Principal.quantidades[i + 1];
+            }
+
+            Principal.totalProdutos--;
+
+            //FAZ A EXCLUSÃO DOS DADOS DO VALOR QUE FICA DUPLICADO APÓS JOGAR TODOS UMA CASA PARA TRÁS.
+            nomes[totalProdutos] = null;
+            precos[totalProdutos] = 0.0;
+            unidades[totalProdutos] = null;
+            quantidades[totalProdutos] = 0;
+
+            // SE SIM PARA NOVA EXCLUSAO
+            novaExclusao = JOptionPane.showInputDialog(
+                    "NOVA EXCLUSÃO (S/N)?"
+            ).toUpperCase().charAt(0);
+
+        } while (novaExclusao == 'S');
+
+    }
+
 }
