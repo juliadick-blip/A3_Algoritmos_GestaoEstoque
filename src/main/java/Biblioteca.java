@@ -56,6 +56,8 @@ public class Biblioteca {
                         null,
                         "Operação cancelada."
                 );
+                
+                System.exit(0);
 
                 return "";
             }
