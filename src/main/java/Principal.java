@@ -442,10 +442,7 @@ public class Principal {
     }
 
     // Tela 1.2
-    // Tela 1.2
     public static void movimentacaoProduto() {
-
-        int opcao;
 
         if (!Biblioteca.verificaSeEstaVazio(nomes)) {
             JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
@@ -454,36 +451,42 @@ public class Principal {
 
         while (true) {
 
-            opcao = Integer.parseInt(JOptionPane.showInputDialog(
+            String entrada = JOptionPane.showInputDialog(
                     "XYZ COMERCIO DE PRODUTOS LTDA.\nSISTEMA DE CONTROLE DE ESTOQUE\n\nMOVIMENTAÇÃO\n\n"
                             + "1 - ENTRADA\n"
                             + "2 - SAÍDA\n"
                             + "0 - RETORNAR\n\n"
                             + "OPÇÃO:"
-            ));
+            );
 
-            if (Integer.toString(opcao) == null) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Retornando ao menu principal..."
-                );
+            if (entrada == null) {
+                JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
                 return;
             }
 
+            int opcao;
+
+            try {
+                opcao = Integer.parseInt(entrada);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "ERRO: Digite apenas números.");
+                continue;
+            }
+
             switch (opcao) {
+
                 case 1:
                     entradaDeProduto();
                     break;
 
                 case 2:
-                    // saidaDeProduto();
+                    saidaDeProduto();
                     break;
+
                 case 0:
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Retornando ao menu principal..."
-                    );
+                    JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
                     return;
+
                 default:
                     JOptionPane.showMessageDialog(null, "Opção inválida.");
             }
@@ -513,7 +516,7 @@ public class Principal {
                     return;
                 }
 
-                indice = Biblioteca.acharIndice(nomeProduto);
+                indice = Biblioteca.acharIndice(nomeProduto.trim());
 
                 if (indice == -1) {
 
@@ -587,6 +590,15 @@ public class Principal {
                     quantidades[indice] = qtdFinal;
                     break;
                 }
+
+                if (confirmacao.equalsIgnoreCase("N")) {
+                    break;
+                }
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "ERRO: Digite apenas S ou N."
+                );
             }
 
             novaInclusao = Biblioteca.confirmar(
@@ -596,4 +608,128 @@ public class Principal {
         } while (novaInclusao == 'S');
     }
 
+    // Tela 1.2.2
+    public static void saidaDeProduto() {
+
+        String nomeProduto;
+        int indice;
+        int qtdSaida;
+        int qtdFinal;
+        String confirmacao;
+        char novaSaida;
+
+        do {
+
+            while (true) {
+
+                nomeProduto = JOptionPane.showInputDialog(
+                        null,
+                        "Qual o nome do Produto?"
+                );
+
+                if (nomeProduto == null) {
+                    return;
+                }
+
+                indice = Biblioteca.acharIndice(nomeProduto.trim());
+
+                if (indice == -1) {
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "ERRO: Produto não cadastrado."
+                    );
+
+                    continue;
+                }
+
+                break;
+            }
+
+            while (true) {
+
+                String saida = JOptionPane.showInputDialog(
+                        null,
+                        "PRODUTO: " + nomes[indice]
+                                + "\nQTDE ATUAL: " + quantidades[indice]
+                                + "\n\nDigite a quantidade de saída:"
+                );
+
+                if (saida == null) {
+                    return;
+                }
+
+                try {
+
+                    qtdSaida = Integer.parseInt(saida);
+
+                    if (qtdSaida <= 0) {
+
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "ERRO: Quantidade inválida."
+                        );
+
+                        continue;
+                    }
+
+                    if (qtdSaida > quantidades[indice]) {
+
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "ERRO: Estoque insuficiente."
+                        );
+
+                        continue;
+                    }
+
+                    break;
+
+                } catch (NumberFormatException e) {
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "ERRO: Digite apenas números."
+                    );
+                }
+            }
+
+            qtdFinal = quantidades[indice] - qtdSaida;
+
+            while (true) {
+
+                confirmacao = JOptionPane.showInputDialog(
+                        null,
+                        "PRODUTO: " + nomes[indice]
+                                + "\nQTDE ATUAL: " + quantidades[indice]
+                                + "\nQTDE SAÍDA: " + qtdSaida
+                                + "\nQTDE FINAL: " + qtdFinal
+                                + "\n\nCONFIRMA SAÍDA (S/N)?"
+                );
+
+                if (confirmacao == null) {
+                    return;
+                }
+
+                if (confirmacao.equalsIgnoreCase("S")) {
+                    quantidades[indice] = qtdFinal;
+                    break;
+                }
+
+                if (confirmacao.equalsIgnoreCase("N")) {
+                    break;
+                }
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "ERRO: Digite apenas S ou N."
+                );
+            }
+
+            novaSaida = Biblioteca.confirmar(
+                    "NOVA SAÍDA (S/N)?"
+            );
+
+        } while (novaSaida == 'S');
+    }
 }
