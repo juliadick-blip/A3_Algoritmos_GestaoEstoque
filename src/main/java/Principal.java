@@ -442,9 +442,11 @@ public class Principal {
     }
 
     // Tela 1.2
+    // Tela 1.2
     public static void movimentacaoProduto() {
-        String itemSelecionado;
-        int indice = -1;
+
+        int opcao;
+
         if (!Biblioteca.verificaSeEstaVazio(nomes)) {
             JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
             return;
@@ -452,13 +454,38 @@ public class Principal {
 
         while (true) {
 
-            itemSelecionado = JOptionPane.showInputDialog(
-                    "MOVIMENTAÇÃO\n\n"
-                            + "1 - ENTRADA\n 2 - SAÍDA\n 0 - Retornar"
-            );
+            opcao = Integer.parseInt(JOptionPane.showInputDialog(
+                    "XYZ COMERCIO DE PRODUTOS LTDA.\nSISTEMA DE CONTROLE DE ESTOQUE\n\nMOVIMENTAÇÃO\n\n"
+                            + "1 - ENTRADA\n"
+                            + "2 - SAÍDA\n"
+                            + "0 - RETORNAR\n\n"
+                            + "OPÇÃO:"
+            ));
 
-            switch (Biblioteca.lerInteiro(itemSelecionado)){
+            if (Integer.toString(opcao) == null) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Retornando ao menu principal..."
+                );
+                return;
+            }
+
+            switch (opcao) {
                 case 1:
+                    entradaDeProduto();
+                    break;
+
+                case 2:
+                    // saidaDeProduto();
+                    break;
+                case 0:
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Retornando ao menu principal..."
+                    );
+                    return;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção inválida.");
             }
         }
     }
