@@ -1,4 +1,5 @@
 
+
 public class Biblioteca {
     
       // SUBROTINA DE VALIDAÇÃO SE O PRODUTO EXISTE
@@ -15,7 +16,7 @@ public class Biblioteca {
     }
     
     //PROCURA O INDICE DO PRODUTO A SER ALTERADO
-    static int acharIndice(String itemSelecionado) {
+    public static int acharIndice(String itemSelecionado) {
         int index = -1;
 
         for (int i = 0; i < Principal.totalProdutos; i++) {
@@ -26,4 +27,18 @@ public class Biblioteca {
         }
         return index;
     }
+    
+    public static boolean verificaSeEstaVazio(String []nomes){
+        boolean achou = true;
+            for(int i = 0; i < (Principal.totalProdutos + 1); i++){
+                if(nomes[i] != null){
+                    break;
+                }else{
+                    achou = false;
+                }
+            }
+            return achou;
+            
+    }
+ 
 }

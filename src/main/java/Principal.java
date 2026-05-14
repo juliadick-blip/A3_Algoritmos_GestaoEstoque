@@ -50,6 +50,19 @@ public class Principal {
 
         } while (opcao != 0);
 
+        String[][] tabela = new String[100][4];
+        for (int i = 0; i < (totalProdutos + 1); i++) {
+            tabela[i][0] = nomes[i];
+            tabela[i][1] = Double.toString(precos[i]);
+            tabela[i][2] = unidades[i];
+            tabela[i][3] = Integer.toString(quantidades[i]);
+
+            System.out.println(tabela[i][0]);
+            System.out.println(tabela[i][1]);
+            System.out.println(tabela[i][2]);
+            System.out.println(tabela[i][3]);
+        }
+
     }
 
     // TELA 1.1
@@ -60,19 +73,19 @@ public class Principal {
         do {
 
             opcao = Integer.parseInt(
-                    JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                            + "SISTEMA DE CONTROLE DE ESTOQUE\n"
-                            + "\n"
-                            + "CADASTRO DE PRODUTOS\n"
-                            + "\n"
-                            + "1 - INCLUSÃO\n"
-                            + "2 - ALTERAÇÃO\n"
-                            + "3 - CONSULTA\n"
-                            + "4 - EXCLUSÃO\n"
-                            + "0 - RETORNAR\n"
-                            + "\n"
-                            + "OPÇÃO: "
-                    )
+                    JOptionPane.showInputDialog("""
+                                                XYZ COMERCIO DE PRODUTOS LTDA.
+                                                SISTEMA DE CONTROLE DE ESTOQUE
+                                                
+                                                CADASTRO DE PRODUTOS
+                                                
+                                                1 - INCLUSÃO
+                                                2 - ALTERAÃO
+                                                3 - CONSULTA
+                                                4 - EXCLUSÃO
+                                                0 - RETORNAR
+                                                
+                                                OP\u00c7\u00c3O: """)
             );
 
             switch (opcao) {
@@ -88,7 +101,11 @@ public class Principal {
                 case 3:
                     consultarProduto();
                     break;
-                    
+
+                case 4:
+                    excluirProduto();
+                    break;
+
                 case 0:
                     JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
                     break;
@@ -115,10 +132,9 @@ public class Principal {
             // NOME
             while (true) {
 
-                nome = JOptionPane.showInputDialog(
-                        "INCLUSÃO DE PRODUTO\n"
-                        + "NOME: "
-                );
+                nome = JOptionPane.showInputDialog("""
+                                                   INCLUSÃO DE PRODUTO
+                                                   NOME: """);
 
                 if (Biblioteca.produtoExiste(nome)) {
 
@@ -205,8 +221,11 @@ public class Principal {
         do {
             //QUAL ITEM SERÁ ALTERADO
             while (true) {
-                itemSolicitado = JOptionPane.showInputDialog("ALTERAÇÃO DE PRODUTO\n"
-                        + "NOME: ");
+                itemSolicitado = JOptionPane.showInputDialog("""
+                                                             ALTERAÇÃO DE PRODUTO
+                                                             
+                                                             NOME:
+                                                             """);
 
                 if (Biblioteca.produtoExiste(itemSolicitado) != true) {
                     JOptionPane.showMessageDialog(null, "ERRO: Produto não encontrado.");
@@ -280,14 +299,20 @@ public class Principal {
         int retornar;
         String itemSelecionado;
         char novaConsulta;
-        int indice;
+        int indice = -1;
 
         do {
+            if(Biblioteca.verificaSeEstaVazio(nomes) == false){
+                break;
+            }
+        
             while (true) {
-                itemSelecionado = JOptionPane.showInputDialog("CONSULTA DE PRODUTO\n"
-                        + "\n"
-                        + "Produto que deseja consultar: ");
+                itemSelecionado = JOptionPane.showInputDialog("""
+                                                              CONSULTA DE PRODUTO
+                                                              
+                                                              Produto que deseja consultar: """);
 
+                
                 if (Biblioteca.produtoExiste(itemSelecionado) != true) {
                     JOptionPane.showMessageDialog(null, "ERRO: Produto não encontrado.");
                 } else {
@@ -322,6 +347,79 @@ public class Principal {
             ).toUpperCase().charAt(0);
 
         } while (novaConsulta == 'S');
+
+    }
+
+    //TELA 1.1.4
+    public static void excluirProduto() {
+        char retornar;
+        String itemSelecionado;
+        char novaExclusao;
+        int indice = -1;
+
+        do {
+            while (true) {
+                itemSelecionado = JOptionPane.showInputDialog("EXCLUSÃO DE PRODUTO\n"
+                        + "\n"
+                        + "Produto que deseja excluir: ");
+
+                if (Biblioteca.produtoExiste(itemSelecionado) != true) {
+                    JOptionPane.showMessageDialog(null, "ERRO: Produto não encontrado.");
+                } else {
+                    indice = Biblioteca.acharIndice(itemSelecionado);
+                    break;
+
+                }
+
+            }
+            retornar = 'N';
+            while (retornar != 'S') {
+
+                retornar = JOptionPane.showInputDialog("""
+                                                                            DADOS DO PRODUTO
+                                                                            
+                                                                            NOME        : %s
+                                                                            PREÇO       : %.2f
+                                                                            UNIDADE     : %s
+                                                                            QUANTIDADE  : %d
+                                                                            
+                                                                            CONFIRMA EXCLUSÃO (S/N)?
+                                                                            """.formatted(nomes[indice],
+                        precos[indice],
+                        unidades[indice],
+                        quantidades[indice]
+                )).toUpperCase().charAt(0);
+            }
+
+            //FAZ A EXCLUSÃO DOS DADOS
+            nomes[indice] = null;
+            precos[indice] = 0.0;
+            unidades[indice] = null;
+            quantidades[indice] = 0;
+            
+            //MOVE TODOS OS ÍNDICES UMA CASA PARA TRÁS
+            for (int i = indice; i < Principal.totalProdutos - 1; i++) {
+
+                    Principal.nomes[i] = Principal.nomes[i + 1];
+                    Principal.precos[i] = Principal.precos[i + 1];
+                    Principal.unidades[i] = Principal.unidades[i + 1];
+                    Principal.quantidades[i] = Principal.quantidades[i + 1];
+                }
+
+                Principal.totalProdutos--;
+    
+                //FAZ A EXCLUSÃO DOS DADOS DO VALOR QUE FICA DUPLICADO APÓS JOGAR TODOS UMA CASA PARA TRÁS.
+            nomes[totalProdutos] = null;
+            precos[totalProdutos] = 0.0;
+            unidades[totalProdutos] = null;
+            quantidades[totalProdutos] = 0;
+                
+            // SE SIM PARA NOVA EXCLUSAO
+            novaExclusao = JOptionPane.showInputDialog(
+                    "NOVA EXCLUSÃO (S/N)?"
+            ).toUpperCase().charAt(0);
+
+        } while (novaExclusao == 'S');
 
     }
 
