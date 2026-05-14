@@ -37,7 +37,9 @@ public class Principal {
                 case 1:
                     menuCadastro();
                     break;
-
+                case 2:
+                    movimentacaoProduto();
+                    break;
                 case 0:
 
                     JOptionPane.showMessageDialog(
@@ -437,6 +439,57 @@ public class Principal {
 
         } while (novaExclusao == 'S');
 
+    }
+
+    // Tela 1.2
+    public static void movimentacaoProduto() {
+        String itemSelecionado;
+        int indice = -1;
+        if (!Biblioteca.verificaSeEstaVazio(nomes)) {
+            JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
+            return;
+        }
+
+        while (true) {
+
+            itemSelecionado = JOptionPane.showInputDialog(
+                    "MOVIMENTAÇÃO\n\n"
+                            + "1 - ENTRADA\n 2 - SAÍDA\n 0 - Retornar"
+            );
+
+            switch (Biblioteca.lerInteiro(itemSelecionado)){
+                case 1:
+            }
+        }
+    }
+
+    // Tela 1.2.1
+    public static void entradaDeProduto() {
+        String itemSelecionado;
+        int indice = -1;
+        if (!Biblioteca.verificaSeEstaVazio(nomes)) {
+            JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
+            return;
+        }
+
+        while (true) {
+
+            itemSelecionado = JOptionPane.showInputDialog(
+                    "ENTRADA DE PRODUTO\n\n"
+                            + "Produto que deseja dar entrada: "
+            );
+
+            if (itemSelecionado == null) {
+                return; // cancelou
+            }
+
+            if (!Biblioteca.produtoExiste(itemSelecionado)) {
+                JOptionPane.showMessageDialog(null, "ERRO: Produto não encontrado.");
+            } else {
+                indice = Biblioteca.acharIndice(itemSelecionado);
+                break;
+            }
+        }
     }
 
 }
