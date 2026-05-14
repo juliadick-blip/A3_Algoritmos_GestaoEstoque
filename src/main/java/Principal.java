@@ -88,7 +88,7 @@ public class Principal {
                 case 3:
                     consultarProduto();
                     break;
-                    
+
                 case 0:
                     JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
                     break;
@@ -132,17 +132,21 @@ public class Principal {
             // PREÇO
             while (true) {
 
-                preco = Double.parseDouble(
-                        JOptionPane.showInputDialog("PREÇO: ")
-                );
+                try {
+                    preco = Double.parseDouble(JOptionPane.showInputDialog("PREÇO: "));
 
-                if (preco <= 0) {
+                    if (preco <= 0) {
 
-                    JOptionPane.showMessageDialog(null, "ERRO: O preço deve ser maior que zero.");
+                        JOptionPane.showMessageDialog(null, "ERRO: O preço deve ser maior que zero.");
 
-                } else {
-                    break;
+                    } else {
+                        break;
+                    }
+
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "ERRO: Valor inválido");
                 }
+
             }
 
             // UNIDADE
@@ -150,18 +154,21 @@ public class Principal {
 
             // QUANTIDADE
             while (true) {
+                try {
+                    quantidade = Integer.parseInt(JOptionPane.showInputDialog("QUANTIDADE: "));
 
-                quantidade = Integer.parseInt(
-                        JOptionPane.showInputDialog("QUANTIDADE: ")
-                );
+                    if (quantidade < 0) {
 
-                if (quantidade < 0) {
+                        JOptionPane.showMessageDialog(null, "ERRO: Quantidade inválida.");
 
-                    JOptionPane.showMessageDialog(null, "ERRO: Quantidade inválida.");
+                    } else {
+                        break;
+                    }
 
-                } else {
-                    break;
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "ERRO: Valor inválido");
                 }
+
             }
 
             // CONFIRMAÇÃO
@@ -280,7 +287,7 @@ public class Principal {
         int retornar;
         String itemSelecionado;
         char novaConsulta;
-        int indice;
+        int indice = -1;
 
         do {
             while (true) {
@@ -292,6 +299,10 @@ public class Principal {
                     JOptionPane.showMessageDialog(null, "ERRO: Produto não encontrado.");
                 } else {
                     indice = Biblioteca.acharIndice(itemSelecionado);
+                    break;
+                }
+
+                if (itemSelecionado == null) {
                     break;
                 }
             }
