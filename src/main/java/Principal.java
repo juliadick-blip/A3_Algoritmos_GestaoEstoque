@@ -492,31 +492,108 @@ public class Principal {
 
     // Tela 1.2.1
     public static void entradaDeProduto() {
-        String itemSelecionado;
-        int indice = -1;
-        if (!Biblioteca.verificaSeEstaVazio(nomes)) {
-            JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
-            return;
-        }
 
-        while (true) {
+        String nomeProduto;
+        int indice;
+        int qtdEntrada;
+        int qtdFinal;
+        String confirmacao;
+        char novaInclusao;
 
-            itemSelecionado = JOptionPane.showInputDialog(
-                    "ENTRADA DE PRODUTO\n\n"
-                            + "Produto que deseja dar entrada: "
-            );
+        do {
 
-            if (itemSelecionado == null) {
-                return; // cancelou
-            }
+            while (true) {
 
-            if (!Biblioteca.produtoExiste(itemSelecionado)) {
-                JOptionPane.showMessageDialog(null, "ERRO: Produto não encontrado.");
-            } else {
-                indice = Biblioteca.acharIndice(itemSelecionado);
+                nomeProduto = JOptionPane.showInputDialog(
+                        null,
+                        "Qual o nome do Produto?"
+                );
+
+                if (nomeProduto == null) {
+                    return;
+                }
+
+                indice = Biblioteca.acharIndice(nomeProduto);
+
+                if (indice == -1) {
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "ERRO: Produto não cadastrado."
+                    );
+
+                    continue;
+                }
+
                 break;
             }
-        }
+
+            while (true) {
+
+                String entrada = JOptionPane.showInputDialog(
+                        null,
+                        "PRODUTO: " + nomes[indice]
+                                + "\nQTDE ATUAL: " + quantidades[indice]
+                                + "\n\nDigite a quantidade de entrada:"
+                );
+
+                if (entrada == null) {
+                    return;
+                }
+
+                try {
+
+                    qtdEntrada = Integer.parseInt(entrada);
+
+                    if (qtdEntrada <= 0) {
+
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "ERRO: Quantidade inválida."
+                        );
+
+                        continue;
+                    }
+
+                    break;
+
+                } catch (NumberFormatException e) {
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "ERRO: Digite apenas números."
+                    );
+                }
+            }
+
+            qtdFinal = quantidades[indice] + qtdEntrada;
+
+            while (true) {
+
+                confirmacao = JOptionPane.showInputDialog(
+                        null,
+                        "PRODUTO: " + nomes[indice]
+                                + "\nQTDE ATUAL: " + quantidades[indice]
+                                + "\nQTDE ENTRADA: " + qtdEntrada
+                                + "\nQTDE FINAL: " + qtdFinal
+                                + "\n\nCONFIRMA ENTRADA (S/N)?"
+                );
+
+                if (confirmacao == null) {
+                    return;
+                }
+
+                if (confirmacao.equalsIgnoreCase("S")) {
+                    quantidades[indice] = qtdFinal;
+                    break;
+                }
+            }
+
+            novaInclusao = Biblioteca.confirmar(
+                    "NOVA INCLUSÃO (S/N)?"
+            );
+
+        } while (novaInclusao == 'S');
     }
 
 }
