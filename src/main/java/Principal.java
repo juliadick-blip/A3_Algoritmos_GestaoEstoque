@@ -7,6 +7,7 @@ public class Principal {
     static double[] precos = new double[100];
     static String[] unidades = new String[100];
     static int[] quantidades = new int[100];
+    static int indice = -1;
 
     static int totalProdutos = 0;
 
@@ -121,7 +122,7 @@ public class Principal {
         } while (true);
     }
 
-  // TELA 1.1.1
+    // TELA 1.1.1
     public static void incluirProduto() {
 
         char novaInclusao;
@@ -175,9 +176,7 @@ public class Principal {
             unidade = Biblioteca.lerTexto("UNIDADE:");
 
             // QUANTIDADE
-            
             while (true) {
-
                 quantidade = Biblioteca.lerInteiro("QUANTIDADE:");
 
                 if (quantidade < 0) {
@@ -193,7 +192,6 @@ public class Principal {
             }
 
             // CONFIRMAÇÃO
-            
             confirma = Biblioteca.confirmar(
                     "CONFIRMA INCLUSÃO (S/N)?"
             );
@@ -230,7 +228,7 @@ public class Principal {
 
     //TELA 1.1.2
     public static void alterarProduto() {
-        String itemSolicitado;
+        String itemSolicitado = null;
         double novoPreco;
         String novaUnidade;
         int novaQuantidade;
@@ -239,9 +237,14 @@ public class Principal {
 
         do {
             //QUAL ITEM SERÁ ALTERADO
+            if (Biblioteca.verificaSeEstaVazio(nomes)) {
+                JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
+                break;
+            }
             while (true) {
-                itemSolicitado = JOptionPane.showInputDialog("ALTERAÇÃO DE PRODUTO\n"
-                        + "NOME: ");
+                itemSolicitado = Biblioteca.lerTexto("""
+                                                     ALTERAÇÃO DE PRODUTO
+                                                     NOME: """);
 
                 if (Biblioteca.produtoExiste(itemSolicitado) != true) {
                     JOptionPane.showMessageDialog(null, "ERRO: Produto não encontrado.");
@@ -253,7 +256,7 @@ public class Principal {
             //NOVO VALOR
             while (true) {
                 try {
-                    novoPreco = Double.parseDouble(JOptionPane.showInputDialog("NOVO PREÇO: "));
+                    novoPreco = Biblioteca.lerDouble("NOVO PREÇO: ");
 
                     if (novoPreco <= 0) {
                         JOptionPane.showMessageDialog(null, "ERRO: O preço deve ser maior que zero.");
@@ -266,12 +269,12 @@ public class Principal {
             }
 
             //NOVA UNIDADE
-            novaUnidade = JOptionPane.showInputDialog("NOVA UNIDADE: ");
+            novaUnidade = Biblioteca.lerTexto("NOVA UNIDADE: ");
 
             //NOVA QUANTIDADE
             while (true) {
                 try {
-                    novaQuantidade = Integer.parseInt(JOptionPane.showInputDialog("NOVA QUANTIDADE: "));
+                    novaQuantidade = Biblioteca.lerInteiro("NOVA QUANTIDADE: ");
 
                     if (novaQuantidade <= 0) {
                         JOptionPane.showMessageDialog(null, "ERRO: A quantidade deve ser maior que zero.");
@@ -284,15 +287,15 @@ public class Principal {
             }
 
             // CONFIRMAÇÃO
-            confirma = JOptionPane.showInputDialog(
+            confirma = Biblioteca.confirmar(
                     "CONFIRMA ALTERAÇÃO (S/N)?"
-            ).toUpperCase().charAt(0);
+            );
 
             if (confirma == 'S') {
-
-                precos[Biblioteca.acharIndice(itemSolicitado)] = novoPreco;
-                unidades[Biblioteca.acharIndice(itemSolicitado)] = novaUnidade;
-                quantidades[Biblioteca.acharIndice(itemSolicitado)] = novaQuantidade;
+                indice = Biblioteca.acharIndice(itemSolicitado);
+                precos[indice] = novoPreco;
+                unidades[indice] = novaUnidade;
+                quantidades[indice] = novaQuantidade;
 
                 JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
 
@@ -302,9 +305,9 @@ public class Principal {
             }
 
             // SE SIM PARA NOVA ALTERACAO
-            novaAlteracao = JOptionPane.showInputDialog(
+            novaAlteracao = Biblioteca.confirmar(
                     "NOVA ALTERAÇÃO (S/N)?"
-            ).toUpperCase().charAt(0);
+            );
 
         } while (novaAlteracao == 'S');
 
@@ -315,13 +318,18 @@ public class Principal {
         int retornar;
         String itemSelecionado;
         char novaConsulta;
-        int indice = -1;
 
         do {
+            if (Biblioteca.verificaSeEstaVazio(nomes)) {
+                JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
+                break;
+            }
+
             while (true) {
-                itemSelecionado = JOptionPane.showInputDialog("CONSULTA DE PRODUTO\n"
-                        + "\n"
-                        + "Produto que deseja consultar: ");
+                itemSelecionado = Biblioteca.lerTexto("""
+                                                      CONSULTA DE PRODUTO
+                                                      
+                                                      Produto que deseja consultar: """);
 
                 if (Biblioteca.produtoExiste(itemSelecionado) != true) {
                     JOptionPane.showMessageDialog(null, "ERRO: Produto não encontrado.");
@@ -337,28 +345,28 @@ public class Principal {
             retornar = 1;
             while (retornar != 0) {
                 try {
-                    retornar = Integer.parseInt(JOptionPane.showInputDialog("""
-                                                                            CONSULTA DE DADOS
-                                                                            
-                                                                            NOME        : %s
-                                                                            PREÇO       : %.2f
-                                                                            UNIDADE     : %s
-                                                                            QUANTIDADE  : %d
-                                                                            
-                                                                            Digite '0' para retornar.
-                                                                            """.formatted(nomes[indice],
+                    retornar = Biblioteca.lerInteiro("""
+                                                     CONSULTA DE DADOS
+                                                     
+                                                     NOME        : %s
+                                                     PREÇO       : %.2f
+                                                     UNIDADE     : %s
+                                                     QUANTIDADE  : %d
+                                                     
+                                                     Digite '0' para retornar.
+                                                     """.formatted(nomes[indice],
                             precos[indice],
                             unidades[indice],
                             quantidades[indice]
-                    )));
+                    ));
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Valor inválido.");
                 }
             }
             // SE SIM PARA NOVA ALTERACAO
-            novaConsulta = JOptionPane.showInputDialog(
+            novaConsulta = Biblioteca.confirmar(
                     "NOVA CONSULTA (S/N)?"
-            ).toUpperCase().charAt(0);
+            );
 
         } while (novaConsulta == 'S');
 
@@ -369,17 +377,17 @@ public class Principal {
         char retornar;
         String itemSelecionado;
         char novaExclusao;
-        int indice = -1;
 
         do {
-            if (Biblioteca.verificaSeEstaVazio(nomes) == false) {
+            if (Biblioteca.verificaSeEstaVazio(nomes) == true) {
                 JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
                 break;
             }
             while (true) {
-                itemSelecionado = JOptionPane.showInputDialog("EXCLUSÃO DE PRODUTO\n"
-                        + "\n"
-                        + "Produto que deseja excluir: ");
+                itemSelecionado = Biblioteca.lerTexto("""
+                                                      EXCLUSÃO DE PRODUTO
+                                                      
+                                                      Produto que deseja excluir: """);
 
                 if (Biblioteca.produtoExiste(itemSelecionado) != true) {
                     JOptionPane.showMessageDialog(null, "ERRO: Produto não encontrado.");
@@ -393,7 +401,7 @@ public class Principal {
             retornar = 'N';
             while (retornar != 'S') {
 
-                retornar = JOptionPane.showInputDialog("""
+                retornar = Biblioteca.confirmar("""
                                                                             DADOS DO PRODUTO
                                                                             
                                                                             NOME        : %s
@@ -406,14 +414,11 @@ public class Principal {
                         precos[indice],
                         unidades[indice],
                         quantidades[indice]
-                )).toUpperCase().charAt(0);
+                ));
             }
 
             //FAZ A EXCLUSÃO DOS DADOS
-            nomes[indice] = null;
-            precos[indice] = 0.0;
-            unidades[indice] = null;
-            quantidades[indice] = 0;
+            Biblioteca.exclusaoDeDados();
 
             //MOVE TODOS OS ÍNDICES UMA CASA PARA TRÁS
             for (int i = indice; i < Principal.totalProdutos - 1; i++) {
@@ -427,15 +432,12 @@ public class Principal {
             Principal.totalProdutos--;
 
             //FAZ A EXCLUSÃO DOS DADOS DO VALOR QUE FICA DUPLICADO APÓS JOGAR TODOS UMA CASA PARA TRÁS.
-            nomes[totalProdutos] = null;
-            precos[totalProdutos] = 0.0;
-            unidades[totalProdutos] = null;
-            quantidades[totalProdutos] = 0;
-
+            Biblioteca.exclusaoDeDados();
+            
             // SE SIM PARA NOVA EXCLUSAO
-            novaExclusao = JOptionPane.showInputDialog(
+            novaExclusao = Biblioteca.confirmar(
                     "NOVA EXCLUSÃO (S/N)?"
-            ).toUpperCase().charAt(0);
+            );
 
         } while (novaExclusao == 'S');
 
@@ -444,7 +446,7 @@ public class Principal {
     // Tela 1.2
     public static void movimentacaoProduto() {
 
-        if (!Biblioteca.verificaSeEstaVazio(nomes)) {
+        if (Biblioteca.verificaSeEstaVazio(nomes)) {
             JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
             return;
         }
@@ -453,10 +455,10 @@ public class Principal {
 
             String entrada = JOptionPane.showInputDialog(
                     "XYZ COMERCIO DE PRODUTOS LTDA.\nSISTEMA DE CONTROLE DE ESTOQUE\n\nMOVIMENTAÇÃO\n\n"
-                            + "1 - ENTRADA\n"
-                            + "2 - SAÍDA\n"
-                            + "0 - RETORNAR\n\n"
-                            + "OPÇÃO:"
+                    + "1 - ENTRADA\n"
+                    + "2 - SAÍDA\n"
+                    + "0 - RETORNAR\n\n"
+                    + "OPÇÃO:"
             );
 
             if (entrada == null) {
@@ -536,8 +538,8 @@ public class Principal {
                 String entrada = JOptionPane.showInputDialog(
                         null,
                         "PRODUTO: " + nomes[indice]
-                                + "\nQTDE ATUAL: " + quantidades[indice]
-                                + "\n\nDigite a quantidade de entrada:"
+                        + "\nQTDE ATUAL: " + quantidades[indice]
+                        + "\n\nDigite a quantidade de entrada:"
                 );
 
                 if (entrada == null) {
@@ -576,10 +578,10 @@ public class Principal {
                 confirmacao = JOptionPane.showInputDialog(
                         null,
                         "PRODUTO: " + nomes[indice]
-                                + "\nQTDE ATUAL: " + quantidades[indice]
-                                + "\nQTDE ENTRADA: " + qtdEntrada
-                                + "\nQTDE FINAL: " + qtdFinal
-                                + "\n\nCONFIRMA ENTRADA (S/N)?"
+                        + "\nQTDE ATUAL: " + quantidades[indice]
+                        + "\nQTDE ENTRADA: " + qtdEntrada
+                        + "\nQTDE FINAL: " + qtdFinal
+                        + "\n\nCONFIRMA ENTRADA (S/N)?"
                 );
 
                 if (confirmacao == null) {
@@ -651,8 +653,8 @@ public class Principal {
                 String saida = JOptionPane.showInputDialog(
                         null,
                         "PRODUTO: " + nomes[indice]
-                                + "\nQTDE ATUAL: " + quantidades[indice]
-                                + "\n\nDigite a quantidade de saída:"
+                        + "\nQTDE ATUAL: " + quantidades[indice]
+                        + "\n\nDigite a quantidade de saída:"
                 );
 
                 if (saida == null) {
@@ -701,10 +703,10 @@ public class Principal {
                 confirmacao = JOptionPane.showInputDialog(
                         null,
                         "PRODUTO: " + nomes[indice]
-                                + "\nQTDE ATUAL: " + quantidades[indice]
-                                + "\nQTDE SAÍDA: " + qtdSaida
-                                + "\nQTDE FINAL: " + qtdFinal
-                                + "\n\nCONFIRMA SAÍDA (S/N)?"
+                        + "\nQTDE ATUAL: " + quantidades[indice]
+                        + "\nQTDE SAÍDA: " + qtdSaida
+                        + "\nQTDE FINAL: " + qtdFinal
+                        + "\n\nCONFIRMA SAÍDA (S/N)?"
                 );
 
                 if (confirmacao == null) {

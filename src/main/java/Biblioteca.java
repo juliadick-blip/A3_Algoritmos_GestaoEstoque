@@ -29,17 +29,23 @@ public class Biblioteca {
         return index;
     }
 
+    //VERIFICA SE O VETOR ESTÁ VAZIO
     public static boolean verificaSeEstaVazio(String[] nomes) {
-        boolean achou = true;
-        for (int i = 0; i < (Principal.totalProdutos + 1); i++) {
+
+        for (int i = 0; i < Principal.nomes.length; i++) {
             if (nomes[i] != null) {
-                break;
-            } else {
-                achou = false;
+                return false; // ENCONTROU PRODUTO
             }
         }
-        return achou;
+        return true; // NÃO ENCONTROU PRODUTO
+    }
 
+    //EXCLUI OS DADOS DOS PRODUTOS
+    public static void exclusaoDeDados() {
+        Principal.nomes[Principal.indice] = null;
+        Principal.precos[Principal.indice] = 0.0;
+        Principal.unidades[Principal.indice] = null;
+        Principal.quantidades[Principal.indice] = 0;
     }
 
     // LER TEXTO
@@ -56,7 +62,7 @@ public class Biblioteca {
                         null,
                         "Operação cancelada."
                 );
-                
+
                 System.exit(0);
 
                 return "";
