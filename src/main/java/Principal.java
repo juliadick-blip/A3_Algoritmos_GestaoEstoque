@@ -1,5 +1,9 @@
 
+import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class Principal {
 
@@ -43,6 +47,9 @@ public class Principal {
                     break;
                 case 3:
                     reajustePrecos();
+                    break;
+                case 4:
+                    relatorios();
                     break;
                 case 0:
 
@@ -436,7 +443,7 @@ public class Principal {
 
             //FAZ A EXCLUSÃO DOS DADOS DO VALOR QUE FICA DUPLICADO APÓS JOGAR TODOS UMA CASA PARA TRÁS.
             Biblioteca.exclusaoDeDados();
-            
+
             // SE SIM PARA NOVA EXCLUSAO
             novaExclusao = Biblioteca.confirmar(
                     "NOVA EXCLUSÃO (S/N)?"
@@ -737,7 +744,7 @@ public class Principal {
 
         } while (novaSaida == 'S');
     }
-    
+
     //TELA 1.3
     public static void reajustePrecos() {
 
@@ -881,5 +888,109 @@ public class Principal {
             ).toUpperCase().charAt(0);
 
         } while (novaAlteracao == 'S');
+    }
+
+    //TELA 1.4
+    public static void relatorios() {
+
+        if (!Biblioteca.verificaSeEstaVazio(nomes)) {
+            JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
+            return;
+        }
+
+        while (true) {
+            String entrada = JOptionPane.showInputDialog(
+                    "XYZ COMERCIO DE PRODUTOS LTDA.\nSISTEMA DE CONTROLE DE ESTOQUE\n\nRELATÓRIOS\n\n"
+                    + "1- LISTA DE PREÇOS: \n"
+                    + "2- BALANÇO FÍSICO FINANCEIRO: \n"
+                    + "0- RETORNAR\n\n"
+                    + "OPÇÃO:"
+            );
+            if (entrada == null) {
+                JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
+                return;
+            }
+
+            int opcao;
+
+            try {
+                opcao = Integer.parseInt(entrada);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "ERRO: Digite apenas números.");
+                continue;
+            }
+
+            switch (opcao) {
+                case 1:
+                    listaPrecos();
+                    break;
+
+                case 2:
+                    break;
+
+                case 0:
+                    JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
+                    return;
+
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção inválida.");
+            }
+
+        }
+    }
+
+    public static void listaPrecos() {
+
+        String relatorio = "";
+
+        relatorio += "XYZ COMERCIO DE PRODUTOS LTDA.\n";
+        relatorio += "SISTEMA DE CONTROLE DE ESTOQUE\n\n";
+
+        relatorio += "LISTA DE PREÇOS\n\n";
+
+        relatorio += String.format(
+                "%-20s %-10s %-10s\n",
+                "PRODUTO",
+                "UNIDADE",
+                "PREÇO"
+        );
+
+        relatorio += "-------------------------------------------\n";
+
+        // PRODUTOS
+        for (int i = 0; i < totalProdutos; i++) {
+
+            relatorio += String.format(
+                    "%-20s %-10s R$ %7.2f\n",
+                    nomes[i],
+                    unidades[i],
+                    precos[i]
+            );
+        }
+
+        // =========================
+        // ÁREA DE TEXTO
+        // =========================
+        JTextArea areaTexto = new JTextArea(relatorio);
+
+        // FONTE MONOESPAÇADA
+        areaTexto.setFont(
+                new Font("Monospaced", Font.PLAIN, 14)
+        );
+
+        areaTexto.setEditable(false);
+
+        // SCROLL
+        JScrollPane scroll = new JScrollPane(areaTexto);
+
+        scroll.setPreferredSize(new Dimension(500, 300));
+
+        // EXIBE
+        JOptionPane.showMessageDialog(
+                null,
+                scroll,
+                "RELATÓRIO",
+                JOptionPane.INFORMATION_MESSAGE
+        );
     }
 }
