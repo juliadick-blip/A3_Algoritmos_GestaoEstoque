@@ -41,6 +41,9 @@ public class Principal {
                 case 2:
                     movimentacaoProduto();
                     break;
+                case 3:
+                    reajustePrecos();
+                    break;
                 case 0:
 
                     JOptionPane.showMessageDialog(
@@ -733,5 +736,150 @@ public class Principal {
             );
 
         } while (novaSaida == 'S');
+    }
+    
+    //TELA 1.3
+    public static void reajustePrecos() {
+
+        if (!Biblioteca.verificaSeEstaVazio(nomes)) {
+            JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
+            return;
+        }
+
+        while (true) {
+
+            String entrada = JOptionPane.showInputDialog(
+                    "XYZ COMERCIO DE PRODUTOS LTDA.\nSISTEMA DE CONTROLE DE ESTOQUE\n\nREAJUSTE DE PREÇOS\n\n"
+                    + "1- REAJUSTE GERAL\n"
+                    + "2- REAJUSTE DE UM PRODUTO\n"
+                    + "0- RETORNAR\n\n"
+                    + "OPÇÃO:"
+            );
+            if (entrada == null) {
+                JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
+                return;
+            }
+
+            int opcao;
+
+            try {
+                opcao = Integer.parseInt(entrada);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "ERRO: Digite apenas números.");
+                continue;
+            }
+
+            switch (opcao) {
+                case 1:
+                    reajusteGeral();
+                    break;
+
+                case 2:
+                    reajusteProduto();
+                    break;
+
+                case 0:
+                    JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
+                    return;
+
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção inválida.");
+            }
+
+        }
+    }
+
+    public static void reajusteProduto() {
+        String nomeProduto;
+        int indice;
+        char confirma;
+        double percentual;
+        char novaAlteracao;
+
+        do {
+            nomeProduto = JOptionPane.showInputDialog(
+                    null,
+                    "Qual o nome do Produto?"
+            );
+
+            if (nomeProduto == null) {
+                return;
+            }
+
+            indice = Biblioteca.acharIndice(nomeProduto.trim());
+
+            if (indice == -1) {
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "ERRO: Produto não cadastrado."
+                );
+
+                continue;
+            }
+
+            break;
+
+        } while (true);
+
+        do {
+
+            percentual = Biblioteca.lerDouble(
+                    "PRODUTO: " + nomes[indice]
+                    + "\nUNIDADE: " + unidades[indice]
+                    + "\nPREÇO ATUAL: " + precos[indice]
+                    + "\n\nPERCENTUAL DE REAJUSTE: "
+            );
+
+            // CONFIRMAÇÃO
+            confirma = Biblioteca.confirmar(
+                    "CONFIRMA ALTERAÇÃO (S/N)?"
+            );
+
+            if (confirma == 'S') {
+                precos[indice] = (precos[indice] * (percentual / 100)) + precos[indice];
+
+                JOptionPane.showMessageDialog(null, "Preço alterado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Alteração Cancelada.");
+            }
+            // SE SIM PARA NOVA ALTERACAO
+            novaAlteracao = JOptionPane.showInputDialog(
+                    "NOVO REAJUSTE (S/N)?"
+            ).toUpperCase().charAt(0);
+
+        } while (novaAlteracao == 'S');
+    }
+
+    public static void reajusteGeral() {
+        char confirma;
+        double percentual;
+        char novaAlteracao;
+
+        do {
+            percentual = Biblioteca.lerDouble(
+                    "PERCENTUAL DE REAJUSTE GERAL: "
+            );
+
+            // CONFIRMAÇÃO
+            confirma = Biblioteca.confirmar(
+                    "CONFIRMA ALTERAÇÃO (S/N)?"
+            );
+
+            if (confirma == 'S') {
+                for (int i = 0; i < totalProdutos; i++) {
+                    precos[i] = precos[i] + (precos[i] * (percentual / 100));
+                }
+
+                JOptionPane.showMessageDialog(null, "Preço alterado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Alteração Cancelada.");
+            }
+            // SE SIM PARA NOVA ALTERACAO
+            novaAlteracao = JOptionPane.showInputDialog(
+                    "NOVO REAJUSTE (S/N)?"
+            ).toUpperCase().charAt(0);
+
+        } while (novaAlteracao == 'S');
     }
 }
