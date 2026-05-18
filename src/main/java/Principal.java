@@ -18,24 +18,23 @@ public class Principal {
     public static void main(String[] args) {
 
         // TELA 1.0
-        int opcao = 0;
+        int opcao;
 
         do {
 
-            opcao = Biblioteca.lerInteiro(
-                    "XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                    + "SISTEMA DE CONTROLE DE ESTOQUE\n"
-                    + "\n"
-                    + "MENU PRINCIPAL\n"
-                    + "\n"
-                    + "1 - CADASTRO DE PRODUTOS\n"
-                    + "2 - MOVIMENTAÇÃO\n"
-                    + "3 - REAJUSTE DE PREÇOS\n"
-                    + "4 - RELATÓRIOS\n"
-                    + "0 - FINALIZAR\n"
-                    + "\n"
-                    + "OPÇÃO: "
-            );
+            opcao = Biblioteca.lerInteiro("""
+                                          XYZ COMERCIO DE PRODUTOS LTDA.
+                                          SISTEMA DE CONTROLE DE ESTOQUE
+                                          
+                                          MENU PRINCIPAL
+                                          
+                                          1 - CADASTRO DE PRODUTOS
+                                          2 - MOVIMENTAÇÃO
+                                          3 - REAJUSTE DE PREÇOS
+                                          4 - RELATÓRIOS
+                                          0 - FINALIZAR
+                                          
+                                          OPÇÃO: """);
 
             switch (opcao) {
 
@@ -79,20 +78,19 @@ public class Principal {
 
         do {
 
-            opcao = Biblioteca.lerInteiro(
-                    "XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                    + "SISTEMA DE CONTROLE DE ESTOQUE\n"
-                    + "\n"
-                    + "CADASTRO DE PRODUTOS\n"
-                    + "\n"
-                    + "1 - INCLUSÃO\n"
-                    + "2 - ALTERAÇÃO\n"
-                    + "3 - CONSULTA\n"
-                    + "4 - EXCLUSÃO\n"
-                    + "0 - RETORNAR\n"
-                    + "\n"
-                    + "OPÇÃO: "
-            );
+            opcao = Biblioteca.lerInteiro("""
+                                          XYZ COMERCIO DE PRODUTOS LTDA.
+                                          SISTEMA DE CONTROLE DE ESTOQUE
+                                          
+                                          CADASTRO DE PRODUTOS
+                                          
+                                          1 - INCLUSÃO
+                                          2 - ALTERAÇÃO
+                                          3 - CONSULTA
+                                          4 - EXCLUSÃO
+                                          0 - RETORNAR
+                                          
+                                          OPÇÃO: """);
 
             switch (opcao) {
 
@@ -148,10 +146,10 @@ public class Principal {
             // NOME
             while (true) {
 
-                nome = Biblioteca.lerTexto(
-                        "INCLUSÃO DE PRODUTO\n\n"
-                        + "NOME:"
-                );
+                nome = Biblioteca.lerTexto("""
+                                           INCLUSÇÃO DE PRODUTO
+                                           
+                                           NOME:""");
 
                 if (Biblioteca.produtoExiste(nome)) {
 
@@ -389,7 +387,7 @@ public class Principal {
         char novaExclusao;
 
         do {
-            if (Biblioteca.verificaSeEstaVazio(nomes) == true) {
+            if (Biblioteca.verificaSeEstaVazio(nomes)) {
                 JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
                 break;
             }
@@ -463,13 +461,17 @@ public class Principal {
 
         while (true) {
 
-            String entrada = JOptionPane.showInputDialog(
-                    "XYZ COMERCIO DE PRODUTOS LTDA.\nSISTEMA DE CONTROLE DE ESTOQUE\n\nMOVIMENTAÇÃO\n\n"
-                    + "1 - ENTRADA\n"
-                    + "2 - SAÍDA\n"
-                    + "0 - RETORNAR\n\n"
-                    + "OPÇÃO:"
-            );
+            String entrada = JOptionPane.showInputDialog("""
+                                                         XYZ COMERCIO DE PRODUTOS LTDA.
+                                                         SISTEMA DE CONTROLE DE ESTOQUE
+                                                         
+                                                         MOVIMENTAÇÃO
+                                                         
+                                                         1 - ENTRADA
+                                                         2 - SAÍDA
+                                                         0 - RETORNAR
+                                                         
+                                                         OPÇÃO:""");
 
             if (entrada == null) {
                 JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
@@ -748,20 +750,24 @@ public class Principal {
     //TELA 1.3
     public static void reajustePrecos() {
 
-        if (!Biblioteca.verificaSeEstaVazio(nomes)) {
+        if (Biblioteca.verificaSeEstaVazio(nomes)) {
             JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
             return;
         }
 
         while (true) {
 
-            String entrada = JOptionPane.showInputDialog(
-                    "XYZ COMERCIO DE PRODUTOS LTDA.\nSISTEMA DE CONTROLE DE ESTOQUE\n\nREAJUSTE DE PREÇOS\n\n"
-                    + "1- REAJUSTE GERAL\n"
-                    + "2- REAJUSTE DE UM PRODUTO\n"
-                    + "0- RETORNAR\n\n"
-                    + "OPÇÃO:"
-            );
+            String entrada = JOptionPane.showInputDialog("""
+                                                         XYZ COMERCIO DE PRODUTOS LTDA.
+                                                         SISTEMA DE CONTROLE DE ESTOQUE
+                                                         
+                                                         REAJUSTE DE PREÇOS
+                                                         
+                                                         1- REAJUSTE GERAL
+                                                         2- REAJUSTE DE UM PRODUTO
+                                                         0- RETORNAR
+                                                         
+                                                         OPÇÃO:""");
             if (entrada == null) {
                 JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
                 return;
@@ -893,19 +899,23 @@ public class Principal {
     //TELA 1.4
     public static void relatorios() {
 
-        if (!Biblioteca.verificaSeEstaVazio(nomes)) {
+        if (Biblioteca.verificaSeEstaVazio(nomes)) {
             JOptionPane.showMessageDialog(null, "ERRO: Nenhum produto cadastrado.");
             return;
         }
 
         while (true) {
-            String entrada = JOptionPane.showInputDialog(
-                    "XYZ COMERCIO DE PRODUTOS LTDA.\nSISTEMA DE CONTROLE DE ESTOQUE\n\nRELATÓRIOS\n\n"
-                    + "1- LISTA DE PREÇOS: \n"
-                    + "2- BALANÇO FÍSICO FINANCEIRO: \n"
-                    + "0- RETORNAR\n\n"
-                    + "OPÇÃO:"
-            );
+            String entrada = JOptionPane.showInputDialog("""
+                                                         XYZ COMERCIO DE PRODUTOS LTDA.
+                                                         SISTEMA DE CONTROLE DE ESTOQUE
+                                                         
+                                                         RELATÓRIOS
+                                                         
+                                                         1- LISTA DE PREÇOS: 
+                                                         2- BALANÇO FÍSICO FINANCEIRO: 
+                                                         0- RETORNAR
+                                                         
+                                                         OPÇÃO:""");
             if (entrada == null) {
                 JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
                 return;
@@ -990,7 +1000,7 @@ public class Principal {
                 null,
                 scroll,
                 "RELATÓRIO",
-                JOptionPane.INFORMATION_MESSAGE
+                JOptionPane.PLAIN_MESSAGE
         );
     }
 }

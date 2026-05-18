@@ -21,7 +21,7 @@ public class Biblioteca {
         int index = -1;
 
         for (int i = 0; i < Principal.totalProdutos; i++) {
-            if (Principal.nomes[i].equals(itemSelecionado)) {
+            if (Principal.nomes[i].equalsIgnoreCase(itemSelecionado)) {
                 index = i;
                 break;
             }
