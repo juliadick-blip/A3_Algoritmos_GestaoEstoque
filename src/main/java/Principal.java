@@ -426,7 +426,7 @@ public class Principal {
             }
 
             //FAZ A EXCLUSÃO DOS DADOS
-            Biblioteca.exclusaoDeDados();
+            Biblioteca.exclusaoDeDados(indice);
 
             //MOVE TODOS OS ÍNDICES UMA CASA PARA TRÁS
             for (int i = indice; i < Principal.totalProdutos - 1; i++) {
@@ -440,7 +440,7 @@ public class Principal {
             Principal.totalProdutos--;
 
             //FAZ A EXCLUSÃO DOS DADOS DO VALOR QUE FICA DUPLICADO APÓS JOGAR TODOS UMA CASA PARA TRÁS.
-            Biblioteca.exclusaoDeDados();
+            Biblioteca.exclusaoDeDados(totalProdutos);
 
             // SE SIM PARA NOVA EXCLUSAO
             novaExclusao = Biblioteca.confirmar(

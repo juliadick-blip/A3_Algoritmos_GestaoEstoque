@@ -41,11 +41,11 @@ public class Biblioteca {
     }
 
     //EXCLUI OS DADOS DOS PRODUTOS
-    public static void exclusaoDeDados() {
-        Principal.nomes[Principal.indice] = null;
-        Principal.precos[Principal.indice] = 0.0;
-        Principal.unidades[Principal.indice] = null;
-        Principal.quantidades[Principal.indice] = 0;
+    public static void exclusaoDeDados(int indice) {
+        Principal.nomes[indice] = null;
+        Principal.precos[indice] = 0.0;
+        Principal.unidades[indice] = null;
+        Principal.quantidades[indice] = 0;
     }
 
     // LER TEXTO
