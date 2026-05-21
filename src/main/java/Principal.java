@@ -147,7 +147,7 @@ public class Principal {
             while (true) {
 
                 nome = Biblioteca.lerTexto("""
-                                           INCLUSÇÃO DE PRODUTO
+                                           INCLUSÃO DE PRODUTO
                                            
                                            NOME:""");
 
@@ -201,7 +201,12 @@ public class Principal {
 
             // CONFIRMAÇÃO
             confirma = Biblioteca.confirmar(
-                    "CONFIRMA INCLUSÃO (S/N)?"
+                    "DADOS DO PRODUTO \n"
+                    +"Nome: " + nome + "\n"
+                    + "Preço: " + preco + "\n"
+                    + "Unidade: " + unidade + "\n"
+                    + "Quantidade: " + quantidade + "\n\n"
+                    + "CONFIRMA INCLUSÃO (S/N)?"
             );
 
             if (confirma == 'S') {
