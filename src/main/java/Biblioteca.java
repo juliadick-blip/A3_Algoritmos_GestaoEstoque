@@ -15,6 +15,18 @@ public class Biblioteca {
 
         return false;
     }
+    
+    public static String mostrarDados(int indiceNome, int indicePreco, int indiceUnidades, int indiceQuantidade){
+           String produtoAExibir = null;
+        return produtoAExibir = """
+                                                     NOME        : %s
+                                                     PREÇO       : %.2f
+                                                     UNIDADE     : %s
+                                                     QUANTIDADE  : %d""".formatted(Principal.nomes[indiceNome],
+                            Principal.precos[indicePreco],
+                            Principal.unidades[indiceUnidades],
+                            Principal.quantidades[indiceQuantidade]);
+    }
 
     //PROCURA O INDICE DO PRODUTO A SER ALTERADO
     public static int acharIndice(String itemSelecionado) {

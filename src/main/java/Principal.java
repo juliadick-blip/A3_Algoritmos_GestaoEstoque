@@ -200,13 +200,16 @@ public class Principal {
             }
 
             // CONFIRMAÇÃO
-            confirma = Biblioteca.confirmar(
-                    "DADOS DO PRODUTO \n"
-                    +"Nome: " + nome + "\n"
-                    + "Preço: " + preco + "\n"
-                    + "Unidade: " + unidade + "\n"
-                    + "Quantidade: " + quantidade + "\n\n"
-                    + "CONFIRMA INCLUSÃO (S/N)?"
+            confirma = Biblioteca.confirmar("""
+                                            
+                    DADOS DO PRODUTO
+                                            
+                    Nome: %s
+                    Preço: %.2f
+                    Unidade: %s
+                    Quantidade: %d
+                                                              
+                    CONFIRMA INCLUSÃO (S/N)?""".formatted(nome,preco,unidade,quantidade)
             );
 
             if (confirma == 'S') {
@@ -300,8 +303,16 @@ public class Principal {
             }
 
             // CONFIRMAÇÃO
-            confirma = Biblioteca.confirmar(
-                    "CONFIRMA ALTERAÇÃO (S/N)?"
+            confirma = Biblioteca.confirmar("""
+                    DADOS A SEREM ALTERADOS
+                                                          
+                    Nome: %s
+                    Preço: %.2f
+                    Unidade: %s
+                    Quantidade: %d
+                                                              
+                    CONFIRMA ALTERAÇÃO (S/N)?""".formatted(itemSolicitado,novoPreco,novaUnidade,novaQuantidade)
+                    
             );
 
             if (confirma == 'S') {
@@ -361,16 +372,10 @@ public class Principal {
                     retornar = Biblioteca.lerInteiro("""
                                                      CONSULTA DE DADOS
                                                      
-                                                     NOME        : %s
-                                                     PREÇO       : %.2f
-                                                     UNIDADE     : %s
-                                                     QUANTIDADE  : %d
+                                                     %s
                                                      
                                                      Digite '0' para retornar.
-                                                     """.formatted(nomes[indice],
-                            precos[indice],
-                            unidades[indice],
-                            quantidades[indice]
+                                                     """.formatted(Biblioteca.mostrarDados(indice,indice,indice,indice)
                     ));
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Valor inválido.");
@@ -417,17 +422,10 @@ public class Principal {
                 retornar = Biblioteca.confirmar("""
                                                                             DADOS DO PRODUTO
                                                                             
-                                                                            NOME        : %s
-                                                                            PREÇO       : %.2f
-                                                                            UNIDADE     : %s
-                                                                            QUANTIDADE  : %d
+                                                                           %s
                                                                             
                                                                             CONFIRMA EXCLUSÃO (S/N)?
-                                                                            """.formatted(nomes[indice],
-                        precos[indice],
-                        unidades[indice],
-                        quantidades[indice]
-                ));
+                                                                            """.formatted(Biblioteca.mostrarDados(indice,indice,indice,indice)                ));
             }
 
             //FAZ A EXCLUSÃO DOS DADOS
