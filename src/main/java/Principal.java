@@ -1,6 +1,8 @@
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -209,7 +211,7 @@ public class Principal {
                     Unidade: %s
                     Quantidade: %d
                                                               
-                    CONFIRMA INCLUSÃO (S/N)?""".formatted(nome,preco,unidade,quantidade)
+                    CONFIRMA INCLUSÃO (S/N)?""".formatted(nome, preco, unidade, quantidade)
             );
 
             if (confirma == 'S') {
@@ -311,8 +313,7 @@ public class Principal {
                     Unidade: %s
                     Quantidade: %d
                                                               
-                    CONFIRMA ALTERAÇÃO (S/N)?""".formatted(itemSolicitado,novoPreco,novaUnidade,novaQuantidade)
-                    
+                    CONFIRMA ALTERAÇÃO (S/N)?""".formatted(itemSolicitado, novoPreco, novaUnidade, novaQuantidade)
             );
 
             if (confirma == 'S') {
@@ -375,7 +376,7 @@ public class Principal {
                                                      %s
                                                      
                                                      Digite '0' para retornar.
-                                                     """.formatted(Biblioteca.mostrarDados(indice,indice,indice,indice)
+                                                     """.formatted(Biblioteca.mostrarDados(indice, indice, indice, indice)
                     ));
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Valor inválido.");
@@ -425,7 +426,7 @@ public class Principal {
                                                                            %s
                                                                             
                                                                             CONFIRMA EXCLUSÃO (S/N)?
-                                                                            """.formatted(Biblioteca.mostrarDados(indice,indice,indice,indice)                ));
+                                                                            """.formatted(Biblioteca.mostrarDados(indice, indice, indice, indice)));
             }
 
             //FAZ A EXCLUSÃO DOS DADOS
@@ -939,7 +940,7 @@ public class Principal {
                     break;
 
                 case 2:
-                    break;
+                    fisicoFinanceiro();
 
                 case 0:
                     JOptionPane.showMessageDialog(null, "Retornando ao menu principal...");
@@ -956,34 +957,28 @@ public class Principal {
 
         String relatorio = "";
 
-        relatorio += "XYZ COMERCIO DE PRODUTOS LTDA.\n";
-        relatorio += "SISTEMA DE CONTROLE DE ESTOQUE\n\n";
+        relatorio += """
+        XYZ COMERCIO DE PRODUTOS LTDA.
+        SISTEMA DE CONTROLE DE ESTOQUE
 
-        relatorio += "LISTA DE PREÇOS\n\n";
+        LISTA DE PREÇOS
 
-        relatorio += String.format(
-                "%-20s %-10s %-10s\n",
-                "PRODUTO",
-                "UNIDADE",
-                "PREÇO"
-        );
-
-        relatorio += "-------------------------------------------\n";
+        %-20s %-10s %-10s
+        -------------------------------------------
+        """.formatted("PRODUTO", "UNIDADE", "PREÇO");
 
         // PRODUTOS
         for (int i = 0; i < totalProdutos; i++) {
 
             relatorio += String.format(
-                    "%-20s %-10s R$ %7.2f\n",
+                    "%-20s %-10s R$ %6.2f\n",
                     nomes[i],
                     unidades[i],
                     precos[i]
             );
         }
 
-        // =========================
         // ÁREA DE TEXTO
-        // =========================
         JTextArea areaTexto = new JTextArea(relatorio);
 
         // FONTE MONOESPAÇADA
@@ -991,11 +986,13 @@ public class Principal {
                 new Font("Monospaced", Font.PLAIN, 14)
         );
 
+        //PARA QUEM ESTÁ LENDO, NÃO CONSEGUIR EDITAR
         areaTexto.setEditable(false);
 
         // SCROLL
         JScrollPane scroll = new JScrollPane(areaTexto);
 
+        //DIMENSÃO DA JANELA
         scroll.setPreferredSize(new Dimension(500, 300));
 
         // EXIBE
@@ -1005,5 +1002,66 @@ public class Principal {
                 "RELATÓRIO",
                 JOptionPane.PLAIN_MESSAGE
         );
+    }
+
+    public static void fisicoFinanceiro() {
+
+        String relatorio = "";
+        LocalDate data = LocalDate.now();
+        String dataFormatada = data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        double valorTotal = 0;
+        int itensTotais = 0;
+
+        relatorio += """
+                 XYZ COMERCIO DE PRODUTOS LTDA.
+                 SISTEMA DE CONTROLE DE ESTOQUE
+
+                 DATA: %-15s          %-35s %-8s
+
+                 --------------------------------------------------------------------------------
+                 %-25s %-8s %-15s %-8s %-15s
+                 --------------------------------------------------------------------------------
+                 """.formatted(dataFormatada, "BALANÇO FÍSICO-FINANCEIRO", "PG 001", "PRODUTO", "UND", "PREÇO UNITÁRIO", "QTDE", "PREÇO TOTAL");
+
+        // PRODUTOS
+        for (int i = 0; i < totalProdutos; i++) {
+
+            valorTotal += (precos[i] * quantidades[i]);
+            itensTotais += quantidades[i];
+
+            relatorio += String.format(
+                    "%-25s %-8s R$ %-12.2f %-8d %-12.2f\n",
+                    nomes[i],
+                    unidades[i],
+                    precos[i],
+                    quantidades[i],
+                    (precos[i] * quantidades[i])
+            );
+        }
+
+        relatorio += """
+                     
+                     TOTAL DE ITENS NO ESTOQUE : %d
+                     VALOR TOTAL DO ESTOQUE    : %.2f
+                     """.formatted(itensTotais, valorTotal);
+
+        // ÁREA DE TEXTO
+        JTextArea areaTexto = new JTextArea(relatorio);
+
+        // FONTE MONOESPAÇADA
+        areaTexto.setFont(
+                new Font("Monospaced", Font.PLAIN, 14)
+        );
+
+        //PARA QUEM ESTÁ LENDO, NÃO CONSEGUIR EDITAR
+        areaTexto.setEditable(false);
+
+        // SCROLL
+        JScrollPane scroll = new JScrollPane(areaTexto);
+
+        //DIMENSÃO DA JANELA
+        scroll.setPreferredSize(new Dimension(850, 400));
+
+        JOptionPane.showMessageDialog(null, scroll, "RELATORIO", JOptionPane.PLAIN_MESSAGE);
     }
 }
