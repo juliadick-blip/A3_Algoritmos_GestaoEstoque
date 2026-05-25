@@ -13,7 +13,15 @@ import javax.swing.JOptionPane;
  * @version 1.0
  */
 public class Biblioteca {
-    
+
+    /**
+     * Construtor privado da classe Biblioteca.
+     *
+     * <p>
+     * Impede a instanciação da classe, pois todos os métodos são estáticos.</p>
+     */
+    private Biblioteca() {
+    }
 
     /**
      * Verifica se um produto já está cadastrado no sistema.
@@ -22,7 +30,6 @@ public class Biblioteca {
      * Realiza a busca pelo nome do produto no vetor de produtos
      * cadastrados.</p>
      *
-     * @author Julia Dick
      * @param nome nome do produto a ser pesquisado
      * @return true caso o produto exista, false caso contrário
      */
@@ -44,7 +51,6 @@ public class Biblioteca {
     /**
      * Monta e retorna uma string contendo os dados de um produto específico.
      *
-     * @author Eduardo Gonçalves
      * @param indiceNome índice do nome do produto
      * @param indicePreco índice do preço do produto
      * @param indiceUnidades índice da unidade do produto
@@ -66,7 +72,6 @@ public class Biblioteca {
     /**
      * Localiza o índice correspondente ao produto informado.
      *
-     * @author Eduardo Gonçalves
      * @param itemSelecionado nome do produto pesquisado
      * @return índice do produto encontrado ou -1 caso não exista
      */
@@ -85,7 +90,6 @@ public class Biblioteca {
     /**
      * Verifica se o vetor de produtos está vazio.
      *
-     * @author Eduardo Gonçalves
      * @param nomes vetor de nomes dos produtos
      * @return true caso o vetor esteja vazio, false caso exista algum produto
      * cadastrado
@@ -103,7 +107,6 @@ public class Biblioteca {
     /**
      * Remove os dados de um produto dos vetores do sistema.
      *
-     * @author Eduardo Gonçalves
      * @param indice posição do produto que será removido
      */
     public static void exclusaoDeDados(int indice) {
@@ -119,7 +122,6 @@ public class Biblioteca {
      * <p>
      * O método valida campos vazios e trata o cancelamento da operação.</p>
      *
-     * @author Julia Dick
      * @param mensagem mensagem exibida ao usuário
      * @return texto informado pelo usuário
      */
@@ -162,8 +164,7 @@ public class Biblioteca {
      *
      * <p>
      * Valida entradas vazias e impede caracteres inválidos.</p>
-     *
-     * @author Julia Dick
+     * 
      * @param mensagem mensagem exibida ao usuário
      * @return valor inteiro informado
      */
@@ -215,7 +216,6 @@ public class Biblioteca {
      * <p>
      * Valida se o valor digitado é numérico.</p>
      *
-     * @author Julia Dick
      * @param mensagem mensagem exibida ao usuário
      * @return valor decimal informado
      */
@@ -243,7 +243,6 @@ public class Biblioteca {
      * Solicita uma confirmação do usuário utilizando as opções S (Sim) ou N
      * (Não).
      *
-     * @author Julia Dick
      * @param mensagem mensagem exibida ao usuário
      * @return caractere correspondente à confirmação informada
      */

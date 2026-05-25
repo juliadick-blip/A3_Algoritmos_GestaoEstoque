@@ -22,6 +22,15 @@ import javax.swing.JTextArea;
 public class Principal {
 
     /**
+     * Construtor privado da classe Principal.
+     *
+     * <p>
+     * Impede a instanciação da classe, pois todos os métodos são estáticos.</p>
+     */
+    private Principal() {
+    }
+
+    /**
      * Vetores responsáveis por armazenar os dados dos produtos cadastrados.
      */
     static String[] nomes = new String[100];
@@ -47,7 +56,6 @@ public class Principal {
      * <li>Encerramento do sistema</li>
      * </ul>
      *
-     * @author Julia Dick
      * @param args argumentos recebidos pela linha de comando
      */
     public static void main(String[] args) {
@@ -111,8 +119,7 @@ public class Principal {
      * <p>
      * Permite realizar operações de inclusão, alteração, consulta e exclusão de
      * produtos cadastrados.
-     *
-     * @author Julia Dick</p>
+     * </p>
      */
     public static void menuCadastro() {
 
@@ -188,8 +195,6 @@ public class Principal {
      * <li>Unidade</li>
      * <li>Quantidade em estoque</li>
      * </ul>
-     *
-     * @author Julia Dick</p>
      */
     public static void incluirProduto() {
 
@@ -307,15 +312,13 @@ public class Principal {
      *
      * <p>
      * O usuário informa o produto desejado e pode modificar preço, unidade e
-     * quantidade em estoque.
+     * quantidade em estoque.</p>
      *
      * <ul>
      * <li>Preço</li>
      * <li>Unidade de medida</li>
      * <li>Quantidade em estoque</li>
      * </ul>
-     *
-     * @author Eduardo Gonçalves</p>
      */
     public static void alterarProduto() {
         String itemSolicitado = null;
@@ -415,8 +418,7 @@ public class Principal {
      *
      * <p>
      * Exibe as informações detalhadas do produto selecionado pelo usuário.
-     *
-     * @author Eduardo Gonçalves</p>
+     * </p>
      */
     public static void consultarProduto() {
         int retornar;
@@ -476,8 +478,7 @@ public class Principal {
      * <p>
      * Após confirmação do usuário, os dados do produto são excluídos e os
      * vetores são reorganizados para evitar espaços vazios.
-     *
-     * @author Eduardo Gonçalves</p>
+     * </p>
      */
     public static void excluirProduto() {
         char retornar;
@@ -547,8 +548,7 @@ public class Principal {
      *
      * <p>
      * Permite registrar entradas e saídas de produtos no estoque.
-     *
-     * @author João Trilha</p>
+     * </p>
      */
     public static void movimentacaoProduto() {
 
@@ -611,8 +611,7 @@ public class Principal {
      * <p>
      * Atualiza a quantidade disponível do produto selecionado após confirmação
      * do usuário.
-     *
-     * @author João Trilha</p>
+     * </p>
      */
     public static void entradaDeProduto() {
 
@@ -734,8 +733,7 @@ public class Principal {
      * <p>
      * Valida a disponibilidade em estoque antes de efetuar a baixa da
      * quantidade informada.
-     *
-     * @author João Trilha</p>
+     * </p>
      */
     public static void saidaDeProduto() {
 
@@ -928,8 +926,7 @@ public class Principal {
      * <p>
      * O usuário informa o percentual de reajuste que será aplicado ao produto
      * selecionado.
-     *
-     * @author Melissa Monteiro</p>
+     * </p>
      */
     public static void reajusteProduto() {
         String nomeProduto;
@@ -999,8 +996,7 @@ public class Principal {
      * <p>
      * O percentual informado pelo usuário será aplicado sobre todos os produtos
      * do estoque.
-     *
-     * @author Melissa Monteiro</p>
+     * </p>
      */
     public static void reajusteGeral() {
         char confirma;
@@ -1038,13 +1034,11 @@ public class Principal {
      * TELA 1.4 Exibe o menu de relatórios do sistema.
      *
      * * <p>
-     * Permite gerar relatórios de:
+     * Permite gerar relatórios de:</p>
      * <ul>
      * <li>Lista de preços</li>
      * <li>Balanço físico-financeiro</li>
      * </ul>
-     *
-     * @author Melissa Monteiro</p>
      */
     public static void relatorios() {
 
@@ -1102,14 +1096,12 @@ public class Principal {
      * Gera o relatório de lista de preços dos produtos.
      *
      * <p>
-     * Exibe todos os produtos cadastrados contendo:
+     * Exibe todos os produtos cadastrados contendo:</p>
      * <ul>
      * <li>Nome do produto</li>
      * <li>Unidade de medida</li>
      * <li>Preço unitário</li>
      * </ul>
-     *
-     * @author Melissa Monteiro</p>
      */
     public static void listaPrecos() {
 
@@ -1166,7 +1158,7 @@ public class Principal {
      * Gera o relatório de balanço físico-financeiro.
      *
      * <p>
-     * O relatório apresenta:
+     * O relatório apresenta: </p>
      * <ul>
      * <li>Produtos cadastrados</li>
      * <li>Quantidades em estoque</li>
@@ -1174,8 +1166,6 @@ public class Principal {
      * <li>Valor total por produto</li>
      * <li>Total geral do estoque</li>
      * </ul>
-     *
-     * @author Eduardo Gonçalves</p>
      */
     public static void fisicoFinanceiro() {
 
