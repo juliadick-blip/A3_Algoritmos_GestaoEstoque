@@ -1,11 +1,36 @@
 
 import javax.swing.JOptionPane;
 
+/**
+ * Classe responsável por armazenar métodos auxiliares utilizados no sistema de
+ * controle de estoque.
+ *
+ * <p>
+ * Contém métodos de validação, leitura de dados, confirmação de operações e
+ * manipulação de produtos.</p>
+ *
+ * @author Julia Dick, Eduardo Gonçalves, Melissa Monteiro e João Trilha
+ * @version 1.0
+ */
 public class Biblioteca {
+    
 
-    // SUBROTINA DE VALIDAÇÃO SE O PRODUTO EXISTE
+    /**
+     * Verifica se um produto já está cadastrado no sistema.
+     *
+     * <p>
+     * Realiza a busca pelo nome do produto no vetor de produtos
+     * cadastrados.</p>
+     *
+     * @author Julia Dick
+     * @param nome nome do produto a ser pesquisado
+     * @return true caso o produto exista, false caso contrário
+     */
     public static boolean produtoExiste(String nome) {
 
+        /**
+         * Percorre todos os produtos cadastrados no sistema.
+         */
         for (int i = 0; i < Principal.totalProdutos; i++) {
 
             if (Principal.nomes[i].equalsIgnoreCase(nome)) {
@@ -15,20 +40,36 @@ public class Biblioteca {
 
         return false;
     }
-    
-    public static String mostrarDados(int indiceNome, int indicePreco, int indiceUnidades, int indiceQuantidade){
-           String produtoAExibir = null;
+
+    /**
+     * Monta e retorna uma string contendo os dados de um produto específico.
+     *
+     * @author Eduardo Gonçalves
+     * @param indiceNome índice do nome do produto
+     * @param indicePreco índice do preço do produto
+     * @param indiceUnidades índice da unidade do produto
+     * @param indiceQuantidade índice da quantidade do produto
+     * @return string formatada com os dados do produto
+     */
+    public static String mostrarDados(int indiceNome, int indicePreco, int indiceUnidades, int indiceQuantidade) {
+        String produtoAExibir = null;
         return produtoAExibir = """
                                                      NOME        : %s
                                                      PREÇO       : %.2f
                                                      UNIDADE     : %s
                                                      QUANTIDADE  : %d""".formatted(Principal.nomes[indiceNome],
-                            Principal.precos[indicePreco],
-                            Principal.unidades[indiceUnidades],
-                            Principal.quantidades[indiceQuantidade]);
+                Principal.precos[indicePreco],
+                Principal.unidades[indiceUnidades],
+                Principal.quantidades[indiceQuantidade]);
     }
 
-    //PROCURA O INDICE DO PRODUTO A SER ALTERADO
+    /**
+     * Localiza o índice correspondente ao produto informado.
+     *
+     * @author Eduardo Gonçalves
+     * @param itemSelecionado nome do produto pesquisado
+     * @return índice do produto encontrado ou -1 caso não exista
+     */
     public static int acharIndice(String itemSelecionado) {
         int index = -1;
 
@@ -41,7 +82,14 @@ public class Biblioteca {
         return index;
     }
 
-    //VERIFICA SE O VETOR ESTÁ VAZIO
+    /**
+     * Verifica se o vetor de produtos está vazio.
+     *
+     * @author Eduardo Gonçalves
+     * @param nomes vetor de nomes dos produtos
+     * @return true caso o vetor esteja vazio, false caso exista algum produto
+     * cadastrado
+     */
     public static boolean verificaSeEstaVazio(String[] nomes) {
 
         for (int i = 0; i < Principal.nomes.length; i++) {
@@ -52,7 +100,12 @@ public class Biblioteca {
         return true; // NÃO ENCONTROU PRODUTO
     }
 
-    //EXCLUI OS DADOS DOS PRODUTOS
+    /**
+     * Remove os dados de um produto dos vetores do sistema.
+     *
+     * @author Eduardo Gonçalves
+     * @param indice posição do produto que será removido
+     */
     public static void exclusaoDeDados(int indice) {
         Principal.nomes[indice] = null;
         Principal.precos[indice] = 0.0;
@@ -60,7 +113,16 @@ public class Biblioteca {
         Principal.quantidades[indice] = 0;
     }
 
-    // LER TEXTO
+    /**
+     * Realiza a leitura de valores textuais informados pelo usuário.
+     *
+     * <p>
+     * O método valida campos vazios e trata o cancelamento da operação.</p>
+     *
+     * @author Julia Dick
+     * @param mensagem mensagem exibida ao usuário
+     * @return texto informado pelo usuário
+     */
     public static String lerTexto(String mensagem) {
 
         while (true) {
@@ -95,7 +157,16 @@ public class Biblioteca {
         }
     }
 
-    // LER INTEIRO
+    /**
+     * Realiza a leitura de números inteiros.
+     *
+     * <p>
+     * Valida entradas vazias e impede caracteres inválidos.</p>
+     *
+     * @author Julia Dick
+     * @param mensagem mensagem exibida ao usuário
+     * @return valor inteiro informado
+     */
     public static int lerInteiro(String mensagem) {
 
         while (true) {
@@ -137,8 +208,17 @@ public class Biblioteca {
             }
         }
     }
-// LER DOUBLE
 
+    /**
+     * Realiza a leitura de valores do tipo double.
+     *
+     * <p>
+     * Valida se o valor digitado é numérico.</p>
+     *
+     * @author Julia Dick
+     * @param mensagem mensagem exibida ao usuário
+     * @return valor decimal informado
+     */
     public static double lerDouble(String mensagem) {
 
         while (true) {
@@ -159,7 +239,14 @@ public class Biblioteca {
         }
     }
 
-// CONFIRMAÇÃO S/N
+    /**
+     * Solicita uma confirmação do usuário utilizando as opções S (Sim) ou N
+     * (Não).
+     *
+     * @author Julia Dick
+     * @param mensagem mensagem exibida ao usuário
+     * @return caractere correspondente à confirmação informada
+     */
     public static char confirmar(String mensagem) {
 
         while (true) {

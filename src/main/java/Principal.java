@@ -7,8 +7,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ * Classe principal do sistema de controle de estoque da empresa XYZ Comércio de
+ * Produtos LTDA.
+ *
+ * <p>
+ * Esta classe é responsável pelo gerenciamento das funcionalidades de cadastro
+ * de produtos, movimentação de estoque, reajuste de preços e emissão de
+ * relatórios.</p>
+ *
+ * @author Julia Dick, Eduardo Gonçalves, Melissa Monteiro e João Trilha
+ * @version 1.0
+ */
 public class Principal {
 
+    /**
+     * Vetores responsáveis por armazenar os dados dos produtos cadastrados.
+     */
     static String[] nomes = new String[100];
     static double[] precos = new double[100];
     static String[] unidades = new String[100];
@@ -17,9 +32,26 @@ public class Principal {
 
     static int totalProdutos = 0;
 
+    /**
+     * TELA 1.0 Método principal responsável por iniciar o sistema.
+     *
+     * <p>
+     * Exibe o menu principal e direciona o usuário para as funcionalidades
+     * disponíveis do sistema, incluindo:</p>
+     *
+     * <ul>
+     * <li>Cadastro de produtos</li>
+     * <li>Movimentação de estoque</li>
+     * <li>Reajuste de preços</li>
+     * <li>Emissão de relatórios</li>
+     * <li>Encerramento do sistema</li>
+     * </ul>
+     *
+     * @author Julia Dick
+     * @param args argumentos recebidos pela linha de comando
+     */
     public static void main(String[] args) {
 
-        // TELA 1.0
         int opcao;
 
         do {
@@ -73,7 +105,15 @@ public class Principal {
         } while (true);
     }
 
-    // TELA 1.1
+    /**
+     * TELA 1.1 Exibe o menu de cadastro de produtos.
+     *
+     * <p>
+     * Permite realizar operações de inclusão, alteração, consulta e exclusão de
+     * produtos cadastrados.
+     *
+     * @author Julia Dick</p>
+     */
     public static void menuCadastro() {
 
         int opcao;
@@ -132,7 +172,25 @@ public class Principal {
         } while (true);
     }
 
-    // TELA 1.1.1
+    /**
+     * TELA 1.1.1 Realiza o cadastro de novos produtos no sistema.
+     *
+     * <p>
+     * Solicita ao usuário as informações do produto, valida os dados informados
+     * e armazena os valores nos vetores correspondentes. Também há a validação
+     * se o produto já está cadastrado evitando duplicações.
+     *
+     * <p>
+     * Os dados armazenados incluem:</p>
+     * <ul>
+     * <li>Nome</li>
+     * <li>Preço</li>
+     * <li>Unidade</li>
+     * <li>Quantidade em estoque</li>
+     * </ul>
+     *
+     * @author Julia Dick</p>
+     */
     public static void incluirProduto() {
 
         char novaInclusao;
@@ -244,7 +302,21 @@ public class Principal {
         } while (novaInclusao == 'S');
     }
 
-    //TELA 1.1.2
+    /**
+     * TELA 1.1.2 Permite alterar os dados de um produto já cadastrado.
+     *
+     * <p>
+     * O usuário informa o produto desejado e pode modificar preço, unidade e
+     * quantidade em estoque.
+     *
+     * <ul>
+     * <li>Preço</li>
+     * <li>Unidade de medida</li>
+     * <li>Quantidade em estoque</li>
+     * </ul>
+     *
+     * @author Eduardo Gonçalves</p>
+     */
     public static void alterarProduto() {
         String itemSolicitado = null;
         double novoPreco;
@@ -337,8 +409,15 @@ public class Principal {
         } while (novaAlteracao == 'S');
 
     }
-    //TELA 1.1.3
 
+    /**
+     * TELA 1.1.3 Realiza a consulta de um produto cadastrado.
+     *
+     * <p>
+     * Exibe as informações detalhadas do produto selecionado pelo usuário.
+     *
+     * @author Eduardo Gonçalves</p>
+     */
     public static void consultarProduto() {
         int retornar;
         String itemSelecionado;
@@ -391,7 +470,15 @@ public class Principal {
 
     }
 
-    //TELA 1.1.4
+    /**
+     * TELA 1.1.4 Remove um produto do sistema.
+     *
+     * <p>
+     * Após confirmação do usuário, os dados do produto são excluídos e os
+     * vetores são reorganizados para evitar espaços vazios.
+     *
+     * @author Eduardo Gonçalves</p>
+     */
     public static void excluirProduto() {
         char retornar;
         String itemSelecionado;
@@ -455,7 +542,14 @@ public class Principal {
 
     }
 
-    // Tela 1.2
+    /**
+     * Tela 1.2 Exibe o menu de movimentação de estoque.
+     *
+     * <p>
+     * Permite registrar entradas e saídas de produtos no estoque.
+     *
+     * @author João Trilha</p>
+     */
     public static void movimentacaoProduto() {
 
         if (Biblioteca.verificaSeEstaVazio(nomes)) {
@@ -511,7 +605,15 @@ public class Principal {
         }
     }
 
-    // Tela 1.2.1
+    /**
+     * Tela 1.2.1 Realiza a entrada de produtos no estoque.
+     *
+     * <p>
+     * Atualiza a quantidade disponível do produto selecionado após confirmação
+     * do usuário.
+     *
+     * @author João Trilha</p>
+     */
     public static void entradaDeProduto() {
 
         String nomeProduto;
@@ -626,7 +728,15 @@ public class Principal {
         } while (novaInclusao == 'S');
     }
 
-    // Tela 1.2.2
+    /**
+     * Tela 1.2.2 Realiza a saída de produtos do estoque.
+     *
+     * <p>
+     * Valida a disponibilidade em estoque antes de efetuar a baixa da
+     * quantidade informada.
+     *
+     * @author João Trilha</p>
+     */
     public static void saidaDeProduto() {
 
         String nomeProduto;
@@ -751,7 +861,13 @@ public class Principal {
         } while (novaSaida == 'S');
     }
 
-    //TELA 1.3
+    /**
+     * TELA 1.3 Exibe o menu de reajuste de preços.
+     *
+     * <p>
+     * Permite aplicar reajustes gerais ou reajustes específicos para um
+     * produto.</p>
+     */
     public static void reajustePrecos() {
 
         if (Biblioteca.verificaSeEstaVazio(nomes)) {
@@ -806,6 +922,15 @@ public class Principal {
         }
     }
 
+    /**
+     * Realiza o reajuste de preço de um único produto.
+     *
+     * <p>
+     * O usuário informa o percentual de reajuste que será aplicado ao produto
+     * selecionado.
+     *
+     * @author Melissa Monteiro</p>
+     */
     public static void reajusteProduto() {
         String nomeProduto;
         int indice;
@@ -868,6 +993,15 @@ public class Principal {
         } while (novaAlteracao == 'S');
     }
 
+    /**
+     * Aplica reajuste de preços em todos os produtos cadastrados.
+     *
+     * <p>
+     * O percentual informado pelo usuário será aplicado sobre todos os produtos
+     * do estoque.
+     *
+     * @author Melissa Monteiro</p>
+     */
     public static void reajusteGeral() {
         char confirma;
         double percentual;
@@ -900,7 +1034,18 @@ public class Principal {
         } while (novaAlteracao == 'S');
     }
 
-    //TELA 1.4
+    /**
+     * TELA 1.4 Exibe o menu de relatórios do sistema.
+     *
+     * * <p>
+     * Permite gerar relatórios de:
+     * <ul>
+     * <li>Lista de preços</li>
+     * <li>Balanço físico-financeiro</li>
+     * </ul>
+     *
+     * @author Melissa Monteiro</p>
+     */
     public static void relatorios() {
 
         if (Biblioteca.verificaSeEstaVazio(nomes)) {
@@ -953,6 +1098,19 @@ public class Principal {
         }
     }
 
+    /**
+     * Gera o relatório de lista de preços dos produtos.
+     *
+     * <p>
+     * Exibe todos os produtos cadastrados contendo:
+     * <ul>
+     * <li>Nome do produto</li>
+     * <li>Unidade de medida</li>
+     * <li>Preço unitário</li>
+     * </ul>
+     *
+     * @author Melissa Monteiro</p>
+     */
     public static void listaPrecos() {
 
         String relatorio = "";
@@ -1004,6 +1162,21 @@ public class Principal {
         );
     }
 
+    /**
+     * Gera o relatório de balanço físico-financeiro.
+     *
+     * <p>
+     * O relatório apresenta:
+     * <ul>
+     * <li>Produtos cadastrados</li>
+     * <li>Quantidades em estoque</li>
+     * <li>Valores unitários</li>
+     * <li>Valor total por produto</li>
+     * <li>Total geral do estoque</li>
+     * </ul>
+     *
+     * @author Eduardo Gonçalves</p>
+     */
     public static void fisicoFinanceiro() {
 
         String relatorio = "";
