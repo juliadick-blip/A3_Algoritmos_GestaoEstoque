@@ -483,7 +483,7 @@ public class Principal {
     public static void excluirProduto() {
         char retornar;
         String itemSelecionado;
-        char novaExclusao;
+        char novaExclusao = 'N';
 
         do {
             if (Biblioteca.verificaSeEstaVazio(nomes)) {
@@ -515,25 +515,30 @@ public class Principal {
                                                                             
                                                                             CONFIRMA EXCLUSÃO (S/N)?
                                                                             """.formatted(Biblioteca.mostrarDados(indice, indice, indice, indice)));
+
+                if (retornar == 'N') {
+                    break;
+                }
             }
 
-            //FAZ A EXCLUSÃO DOS DADOS
-            Biblioteca.exclusaoDeDados(indice);
+            if (retornar == 'S') {
+                //FAZ A EXCLUSÃO DOS DADOS
+                Biblioteca.exclusaoDeDados(indice);
 
-            //MOVE TODOS OS ÍNDICES UMA CASA PARA TRÁS
-            for (int i = indice; i < Principal.totalProdutos - 1; i++) {
+                //MOVE TODOS OS ÍNDICES UMA CASA PARA TRÁS
+                for (int i = indice; i < Principal.totalProdutos - 1; i++) {
 
-                Principal.nomes[i] = Principal.nomes[i + 1];
-                Principal.precos[i] = Principal.precos[i + 1];
-                Principal.unidades[i] = Principal.unidades[i + 1];
-                Principal.quantidades[i] = Principal.quantidades[i + 1];
+                    Principal.nomes[i] = Principal.nomes[i + 1];
+                    Principal.precos[i] = Principal.precos[i + 1];
+                    Principal.unidades[i] = Principal.unidades[i + 1];
+                    Principal.quantidades[i] = Principal.quantidades[i + 1];
+                }
+
+                Principal.totalProdutos--;
+
+                //FAZ A EXCLUSÃO DOS DADOS DO VALOR QUE FICA DUPLICADO APÓS JOGAR TODOS UMA CASA PARA TRÁS.
+                Biblioteca.exclusaoDeDados(totalProdutos);
             }
-
-            Principal.totalProdutos--;
-
-            //FAZ A EXCLUSÃO DOS DADOS DO VALOR QUE FICA DUPLICADO APÓS JOGAR TODOS UMA CASA PARA TRÁS.
-            Biblioteca.exclusaoDeDados(totalProdutos);
-
             // SE SIM PARA NOVA EXCLUSAO
             novaExclusao = Biblioteca.confirmar(
                     "NOVA EXCLUSÃO (S/N)?"
