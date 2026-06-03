@@ -123,5 +123,37 @@ entre outras situações.
 - O sistema foi dividido em métodos(subrotinas para facilitar a organização do 
 código e seguir os requisitos da atividade.
 
+## 🚀 Tecnologias Utilizadas
+
+O projeto foi desenvolvido utilizando as seguintes tecnologias e ferramentas:
+
+### ☕ Java
+Linguagem de programação utilizada para o desenvolvimento de toda a lógica do sistema, 
+incluindo menus, validações, operações de cadastro, movimentação de estoque e geração 
+de relatórios.
+Versão JDK 25.
+
+### 🖥️ NetBeans IDE
+Ambiente de Desenvolvimento Integrado (IDE) utilizado para criação, edição, 
+compilação, execução e depuração do projeto. O NetBeans auxiliou na organização
+do código e no gerenciamento dos arquivos da aplicação.
+Netbeans 29.
+
+### JOptionPane (Java Swing)
+Biblioteca gráfica utilizada para criação das interfaces do sistema através de 
+caixas de diálogo. Foi empregada para entrada de dados, exibição de mensagens, 
+confirmações e apresentação dos relatórios.
+
+### Vetores
+Estrutura de dados utilizada para armazenamento das informações dos produtos 
+cadastrados, incluindo nome, preço, unidade de medida e quantidade em estoque.
+
+### Git
+Sistema de controle de versão utilizado para registrar e acompanhar as alterações 
+realizadas durante o desenvolvimento do projeto.
+
+### JavaDoc
+Ferramenta utilizada para documentação do código-fonte, permitindo registrar 
+informações sobre classes, métodos e funcionalidades implementadas no sistema.
 
 Desenvolvido utilizado JDK 25 e NetBeans 29.
